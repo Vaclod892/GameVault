@@ -1,5 +1,6 @@
 import express from "express";
 import conn from "./db/conn.js";
+import cors from "cors";
 import main from "./main.js";
 
 const app = express();
@@ -7,6 +8,9 @@ const port = 3030;
 
 app.use(express.json());
 
+//M.M
+//adicion de cors al archivo principal
+app.use(cors());
 
 conn.connect((err) => {
   if (err) {
