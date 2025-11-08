@@ -1,20 +1,27 @@
-
-import { Link } from 'wouter'
-    ;
+import React, { Component } from 'react';
+// import { Link } from 'wouter';
 import './Home.css';
 
-function Home() {
-    return (
-        <div className='home'>
+import SelectorGenero from "../SelectorGenero/SelectorGenero";
+import ListadeJuegos from "../ListadeJuegos/ListadeJuegos"
+
+class Home extends Component {
+    constructor() {
+     super()
 
 
+    }
+    
+    render() {
+        return (
+            <div className='home'>
+
+            <SelectorGenero></SelectorGenero>
+
+            <ListadeJuegos></ListadeJuegos>            
 
             <h1> NO ENTIENDO PORQUE NO FUNCIONA NADA DE LO QUE HAGO (soy el home)🤣🤣😂</h1>
 
-            <Link href='/loggin'>
-
-                <button> aca deberian estar los juegos porque no se muestra el texto si antes</button>
-            </Link>
             <div style={{ backgroundColor: 'red' }}>asadas</div>
             <span style={{ backgroundColor: 'red' }}>adasdas</span>
 
@@ -42,6 +49,7 @@ function Home() {
 
         </div>
     );
+  }
 }
 
 export default Home;
