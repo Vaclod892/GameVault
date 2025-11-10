@@ -1,6 +1,9 @@
 
 import React, { Component } from 'react';
-// import {  Route, Switch } from "wouter";
+
+//M.M
+//
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; 
 
 // M.M
 // Importamos la biblioteca Axios
@@ -8,11 +11,14 @@ import axios from 'axios';
 
 import './App.css';
 
-// import Home from "./componentes/Home/Home"
-
-// import Loggin from "./componentes/Loggin/Loggin"
-
-// import Juego_seleccionado from "./componentes/Juego_seleccionado/Juego_seleccionado"
+// M.M
+//
+import Home from "./componentes/Home/Home"
+import ResultadodeBusqueda from "./componentes/ResultadoDeBusqueda/ResultadoDeBusqueda"
+import VistaJuego from "./componentes/Vistajuego/VistaJuego"
+import Carrito from "./componentes/Carrito/Carrito"
+import VistadeAdministrador from './componentes/VistadeAdministrador/VistadeAdministrador';
+import Loggin from "./componentes/Loggin/Loggin"
 
 // function App() {
   //return (
@@ -47,7 +53,13 @@ class App extends Component {
      render () {
         return (
           <>
-
+          <Router>
+                <Routes>
+                  <Route path="/" element={<Home />} />  
+                  <Route path="/VistadeJuego" element={<VistaJuego />} /> 
+                  <Route path="/Carrito" element={<Carrito />} />  
+                </Routes>
+          </Router>
           </>
         ); 
      }

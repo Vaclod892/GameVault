@@ -1,0 +1,12 @@
+.encabezado {
+    background-color: #000;
+    display: flex;
+    justify-content: auto;  
+    align-items: flex-start;                               
+    margin: 10px;
+    width: 100%;
+}
+
+.encabezado nav {
+    align-items: flex-end;
+}

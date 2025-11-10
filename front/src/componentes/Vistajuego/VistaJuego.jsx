@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import InformaciondeJuego from "../InformaciondeJuego/InformaciondeJuego"
+import Comentarios from '../Comentarios/Comentarios';
 
 import "./VistaJuego";
 
@@ -13,6 +14,7 @@ class VistaJuego extends Component {
     render() { 
         return ( <>
                 <InformaciondeJuego></InformaciondeJuego>
+                <Comentarios></Comentarios>
               </> );
     }
 }
