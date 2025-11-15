@@ -1,42 +1,135 @@
-.contenedor-principal{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 20px;
+.lista-juegos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 20px;
 }
 
-.contenedor-secundario{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1;
- }
-
-.imagen-portada{    
-    background-color: #232934;
-    display: flex;
-    justify-content: space-between;  
-    align-items: flex-start;                               
-    margin: 10px;
+.contenedor-principal-tarjeta {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 15px;
+  background-color: #2f3744;
+  border-radius: 8px;
+  padding: 15px;
+  color: #fff;
+  min-height: 250px;
 }
 
-
-.imagen-portada img{
-    height: 300px;
-    width: 300px;
-    margin-right: 20px;
+.imagen-portada-tarjeta {
+  background-color: #232934;
+  border-radius: 5px;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 180px;
+  height: 230px;
 }
 
-.informacion{ 
-    flex: 2;                        
-    display: flex;
-    flex-direction: column;           
-    align-items: flex-start;    
+.imagen-portada-tarjeta img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.informacion p {
-    flex: 1;                        
-    display: flex;
-    flex-direction: column;           
-    align-items: flex-start;              
+.contenedor-secundario-tarjeta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  height: 230px;
+}
+
+.informacion-tarjeta h3 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  color: #f0f0f0;
+}
+
+.informacion-tarjeta p {
+  margin: 0;
+  font-size: 14px;
+  color: #ccc;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.detalle-inferior-tarjeta {
+  /* V.D. - Contenedor inferior de precio y acciones */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 100%;
+  margin-top: auto;
+  flex-direction: column;
+}
+
+/* Sección de Precios (Izquierda) */
+.precios-tarjeta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  margin-right: 20%;
+}
+
+.precio-normal {
+  font-size: 14px;
+  text-decoration: line-through;
+  color: #aa4334;
+}
+
+.precio-con-descuento {
+  font-size: 20px;
+  color: #4caf50;
+  font-weight: bold;
+}
+
+/* Sección de Botón y Plataformas (Derecha) */
+.acciones-plataformas {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.agregar-btn {
+  background-color: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 8px 15%;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s;
+}
+
+.agregar-btn:hover {
+  background-color: #45a049;
+}
+
+.carrito-icon {
+  font-size: 16px;
+  color: #c2ed98;
+}
+
+/* Iconos de Plataforma */
+.iconos-plataforma {
+  display: flex;
+  gap: 10px;
+  color: #99a8b8;
+  font-size: 18px;
 }

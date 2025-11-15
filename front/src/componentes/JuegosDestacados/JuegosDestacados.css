@@ -1,0 +1,94 @@
+.contenedor-juegos-destacados {
+  width: 100%;
+  margin: 0 auto;
+  padding: 50px 0;
+  overflow: hidden;
+  background-color: #272c38;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.juegos-listado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 350px;
+  position: relative;
+  padding: 0 50px;
+  box-sizing: border-box;
+}
+
+.juego-card {
+  height: 100%;
+  width: 200px;
+  margin-left: -35px;
+  transition: transform 0.3s ease, margin-left 0.3s ease, z-index 0.3s ease,
+    box-shadow 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  border-radius: 5px;
+  position: relative;
+  background-color: #3f4756;
+}
+
+.juego-card:first-child {
+  margin-left: 0;
+}
+
+/* V.D. - Efecto de Profundidad Estático */
+
+/* BACK ROW (Cards 1, 7) */
+.juego-card:nth-child(1),
+.juego-card:nth-child(7) {
+  z-index: 1;
+  transform: scale(0.85);
+}
+
+/* MID-BACK ROW (Cards 2, 6) */
+.juego-card:nth-child(2),
+.juego-card:nth-child(6) {
+  z-index: 2;
+  transform: scale(0.95);
+}
+
+/* MID-FRONT ROW (Cards 3, 5) */
+.juego-card:nth-child(3),
+.juego-card:nth-child(5) {
+  z-index: 3;
+  transform: scale(1.05);
+}
+
+/* FRONT/PEAK (Card 4) */
+.juego-card:nth-child(4) {
+  z-index: 4;
+  transform: scale(1.15);
+}
+
+/* V.D. - Hover Effect */
+.juego-card:hover {
+  transform: scale(1.2);
+  z-index: 10;
+  margin-left: 5px;
+}
+
+.juego-card:hover + .juego-card {
+  margin-left: 1px;
+}
+
+.juego-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carrusel-btn {
+  display: none;
+}
+
+.juegos-listado-wrapper {
+  overflow: visible;
+}

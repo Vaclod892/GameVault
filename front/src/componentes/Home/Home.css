@@ -1,3 +1,17 @@
 .home {
-    background-color: rgb(57, 59, 85);
+    background-color: #272C38;
+    min-height: 100vh;
+    padding-top: 50px; /* V.D. - Ajustado para dar espacio al Header */
+    padding-bottom: 50px;
+}
+
+.titulo-central {
+    color: #f0f0f0;
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+}
+
+.home > div {
+    margin-bottom: 30px; 
 }

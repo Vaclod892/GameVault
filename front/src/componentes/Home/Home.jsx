@@ -1,55 +1,29 @@
 import React, { Component } from 'react';
-// import { Link } from 'wouter';
 import './Home.css';
 
 import SelectorGenero from "../SelectorGenero/SelectorGenero";
 import ListadeJuegos from "../ListadeJuegos/ListadeJuegos"
+import JuegosDestacados from "../JuegosDestacados/JuegosDestacados"; // V.D. - Componente JuegosDestacados importado
 
 class Home extends Component {
     constructor() {
-     super()
-
-
+        super()
     }
-    
+
     render() {
         return (
             <div className='home'>
 
-            <SelectorGenero></SelectorGenero>
+                <JuegosDestacados />  {/* V.D. - Componente de banners destacados integrado */}
 
-            <ListadeJuegos></ListadeJuegos>            
+                <h2 className="titulo-central">El mayor Catalogo de juegos y entretenimiento</h2> {/* V.D. - Título principal */}
 
-            <h1> NO ENTIENDO PORQUE NO FUNCIONA NADA DE LO QUE HAGO (soy el home)🤣🤣😂</h1>
+                <SelectorGenero /> {/* V.D. - Componente SelectorGenero */}
 
-            <div style={{ backgroundColor: 'red' }}>asadas</div>
-            <span style={{ backgroundColor: 'red' }}>adasdas</span>
-
-<div>
-    <div>el mayor ctsojsoisogs</div>
-    <div className='principal'>
-        <div>grdgd</div>
-        <div>
-            <div></div>
-            <div>
-                <div>
-                    <img src="" alt="" />
-                    <p>accion</p>
-                </div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <ListadeJuegos /> {/* V.D. - Componente ListadeJuegos */}
             </div>
-            <div></div>
-        </div>
-        <div>gdrgdrgdr</div>
-    </div>
-</div>
-
-
-        </div>
-    );
-  }
+        );
+    }
 }
 
 export default Home;

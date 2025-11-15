@@ -18,7 +18,7 @@ import ResultadodeBusqueda from "./componentes/ResultadoDeBusqueda/ResultadoDeBu
 import VistaJuego from "./componentes/Vistajuego/VistaJuego"
 import Carrito from "./componentes/Carrito/Carrito"
 import VistadeAdministrador from './componentes/VistadeAdministrador/VistadeAdministrador';
-import Loggin from "./componentes/Loggin/Loggin"
+import Login from "./componentes/Login/Login"
 
 // function App() {
   //return (
@@ -57,7 +57,8 @@ class App extends Component {
                 <Routes>
                   <Route path="/" element={<Home />} />  
                   <Route path="/VistadeJuego" element={<VistaJuego />} /> 
-                  <Route path="/Carrito" element={<Carrito />} />  
+                  <Route path="/Carrito" element={<Carrito />} /> 
+                  <Route path="/Login" element={<Login />} />
                 </Routes>
           </Router>
           </>
