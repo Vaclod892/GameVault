@@ -29,10 +29,35 @@ class App extends Component {
       constructor() {
           super();
 // M.M
-// Inicializacion del state
+// Inicializacion del state y agregado de mas propiedades para que el estado general cumpla mejor su proposito
        this.state = {
           dataJuegos: [],
-          dataComentarios: []
+
+          dataComentarios: [],
+
+          dataGeneros: [],
+
+          informacionDelUsuarios = {
+            nombreUsuario: "",
+            contraseña: "",
+            emaill: ""
+          },
+
+          hazUnComentario = {
+            resena: "",
+            recomienda: true   
+          },
+
+          crearGenero = {
+            nombre: ""
+          },
+
+          crearJuego = {
+            titulo:"",
+            descripcion: "",
+            precio: "",
+            genero: []
+          }
         }
 
 }
