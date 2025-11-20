@@ -37,22 +37,22 @@ class App extends Component {
 
           dataGeneros: [],
 
-          informacionDelUsuarios = {
+          informacionDelUsuarios: {
             nombreUsuario: "",
             contraseña: "",
             emaill: ""
           },
 
-          hazUnComentario = {
+          hazUnComentario: {
             resena: "",
             recomienda: true   
           },
 
-          crearGenero = {
+          crearGenero: {
             nombre: ""
           },
 
-          crearJuego = {
+          crearJuego: {
             titulo:"",
             descripcion: "",
             precio: "",
