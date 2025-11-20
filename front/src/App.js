@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 //M.M
 //
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'; 
+import { BrowserRouter as Router, Switch, Route,} from 'react-router-dom'; 
 
 // M.M
 // Importamos la biblioteca Axios
@@ -31,18 +31,30 @@ class App extends Component {
 // M.M
 // Inicializacion del state
        this.state = {
-          data: []
+          dataJuegos: [],
+          dataComentarios: []
         }
-      
-      }
+
+}
       
 // M.M
 // Uso del metodo del ciclo de vica componentDidMount para obtener la informacion del back y mandar esa informacion del state      
       
       componentDidMount() {
-        const URL = "http://localhost:3030/api/juegos/";
-        axios.get(URL)
-        .then((res) => { this.setState({ data: res.data });
+        const URLjuegos = "http://localhost:3030/api/juegos/";
+        const URLcomentarios = "http://localhost:3030/api/comentarios";
+
+        axios.get(URLjuegos)
+        .then((res) => { this.setState({ dataJuegos: res.data });
+          console.log(res);
+        })
+        .catch((err) => { console.log(err) })
+
+
+  //M.M
+  //   
+        axios.get(URLcomentarios)
+        .then((res) => { this.setState({ dataComentarios: res.data });
           console.log(res);
         })
         .catch((err) => { console.log(err) })
@@ -54,12 +66,12 @@ class App extends Component {
         return (
           <>
           <Router>
-                <Routes>
-                  <Route path="/" element={<Home />} />  
-                  <Route path="/VistadeJuego" element={<VistaJuego />} /> 
-                  <Route path="/Carrito" element={<Carrito />} /> 
-                  <Route path="/Login" element={<Login />} />
-                </Routes>
+                <Switch>
+                  <Route exact path="/" component={Home} />  
+                  <Route path="/VistadeJuego/:id" render={(props) => <VistaJuego {...props} dataJuego={this.state.dataJuegos} dataComentario={this.state.dataComentarios} />} />
+                  <Route path="/Carrito" component={Carrito} /> 
+                  <Route path="/Login" component={Login} />
+                </Switch>
           </Router>
           </>
         ); 

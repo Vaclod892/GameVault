@@ -6,15 +6,23 @@ import Comentarios from '../Comentarios/Comentarios';
 import "./VistaJuego";
 
 class VistaJuego extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
-    state = {  }
-    render() { 
+    render() {
+
+       const { id } = this.props.match.params;
+       
+       const juego = this.props.dataJuego;
+       const comentarios = this.props.dataComentario;
+
+       const juegoEspecifico = juego.find(j => String(j.id) === String(id));
+       const comentariosDelJuego = comentarios.filter(c => String(c.ID_juego) === String(id));
+
         return ( <>
-                <InformaciondeJuego></InformaciondeJuego>
-                <Comentarios></Comentarios>
+                <InformaciondeJuego juego={juegoEspecifico} />
+                <Comentarios comentarios={comentariosDelJuego}/>
               </> );
     }
 }

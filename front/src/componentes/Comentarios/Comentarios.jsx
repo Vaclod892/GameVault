@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
 
 class Comentarios extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
     render() { 
-        return ( <>
-            <div>
-                <span>Que piensas?</span>
-                <button>positivo</button>
-                <button>negativo</button>
-                <form>
-                    <input type="text" placeholder="Escribe un comentario..."/>   
-                </form>
-                <div></div>
-            </div>
+
+        const comentarios = this.props.comentarios;  
+       
+    return ( <>
+            {
+                comentarios.map((comen) => {
+                  return (
+                    <div key={comen.ID_comentario} className="contenedorprincipal">
+                       <div className="informacion">
+                        { comen.recomienda ?
+                            <p>Recomienda!</p> : 
+                            <p>No lo Recomienda!</p>
+                        }
+                       </div>
+                      <div className="infodescripcion">
+                    <p>{comen.resena}</p>
+                  </div>   
+                    </div>
+                  )
+             })
+           }       
         </> );
     }
 }

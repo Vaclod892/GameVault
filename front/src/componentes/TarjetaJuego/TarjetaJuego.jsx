@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { FaShoppingCart, FaSteam, FaXbox, FaPlaystation } from 'react-icons/fa'; // V.D. - Iconos de React
+// import { FaShoppingCart, FaSteam, FaXbox, FaPlaystation } from 'react-icons/fa'; // V.D. - Iconos de React
 
 import './TarjetaJuego.css'
 
@@ -18,15 +18,15 @@ class TarjetaJuego extends Component {
     }
 
     renderPlataformas() {
-        const iconos = {
-            'Steam': FaSteam,
-            'Xbox': FaXbox,
-            'PlayStation': FaPlaystation
-        };
+       // const iconos = {
+       //     'Steam': FaSteam,
+       //     'Xbox': FaXbox,
+       //     'PlayStation': FaPlaystation
+       // };
         
         return this.state.plataformas.map((plataforma, index) => {
-            const IconComponent = iconos[plataforma];
-            return IconComponent ? <IconComponent key={index} className="plataforma-icon" /> : null;
+            //const IconComponent = iconos[plataforma];
+            //return IconComponent ? <IconComponent key={index} className="plataforma-icon" /> : null;
         });
     }
 
@@ -54,7 +54,7 @@ class TarjetaJuego extends Component {
                         
                         <div className="acciones-plataformas">
                             <button className="agregar-btn">
-                                <FaShoppingCart className="carrito-icon" />
+                            <FaShoppingCart className="carrito-icon" />
                                 Agregar
                             </button>  
                             <div className="iconos-plataforma">
