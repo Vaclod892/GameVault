@@ -1,7 +1,7 @@
-import express from "express";
 import conn from "./db/conn.js";
 import cors from "cors";
 import main from "./main.js";
+import express from "express";
 
 const app = express();
 const port = 3030;

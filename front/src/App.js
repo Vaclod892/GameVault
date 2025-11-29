@@ -20,6 +20,7 @@ import Carrito from "./componentes/Carrito/Carrito"
 import VistadeAdministrador from './componentes/VistadeAdministrador/VistadeAdministrador';
 import Login from "./componentes/Login/Login"
 
+
 // function App() {
   //return (
 

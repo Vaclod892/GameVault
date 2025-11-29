@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Home.css';
 
-import SelectorGenero from "../SelectorGenero/SelectorGenero";
+import SelectorGenero from "./SelectorGenero/SelectorGenero";
 import ListadeJuegos from "../ListadeJuegos/ListadeJuegos"
 import JuegosDestacados from "../JuegosDestacados/JuegosDestacados"; // V.D. - Componente JuegosDestacados importado
 
