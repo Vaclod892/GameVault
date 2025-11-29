@@ -32,20 +32,21 @@ class App extends Component {
 // Inicializacion del state y agregado de mas propiedades para que el estado general cumpla mejor su proposito
        this.state = {
           dataJuegos: [],
-
           dataComentarios: [],
-
+          dataCompras: [],
           dataGeneros: [],
+          dataUsuarios: [],
 
           informacionDelUsuarios: {
             nombreUsuario: "",
             contraseña: "",
             emaill: ""
           },
+          fotoDePerfil: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQayIn4Sk056effKpGGnLYBdsIrLGI7Q5s9MA&s",
 
           hazUnComentario: {
-            resena: "",
-            recomienda: true   
+            recomienda: true,
+            resena: ""   
           },
 
           crearGenero: {
@@ -56,11 +57,14 @@ class App extends Component {
             titulo:"",
             descripcion: "",
             precio: "",
-            genero: []
           }
         }
 
+        this.handleChangeGenero = this.handleChangeGenero.bind(this);
+        this.handleSubmitGenero = this.handleSubmitGenero.bind(this);   
+
 }
+
       
 // M.M
 // Uso del metodo del ciclo de vica componentDidMount para obtener la informacion del back y mandar esa informacion del state      
@@ -68,6 +72,9 @@ class App extends Component {
       componentDidMount() {
         const URLjuegos = "http://localhost:3030/api/juegos/";
         const URLcomentarios = "http://localhost:3030/api/comentarios";
+        const URLcompras = "http://localhost:3030/api/compras"
+        const URLgeneros = "http://localhost:3030/api/generos";
+        const URLusuarios = "http://localhost:3030/api/usuarios";
 
         axios.get(URLjuegos)
         .then((res) => { this.setState({ dataJuegos: res.data });
@@ -83,7 +90,122 @@ class App extends Component {
           console.log(res);
         })
         .catch((err) => { console.log(err) })
-      }
+
+      
+  //M.M
+  //      
+        axios.get(URLgeneros)
+        .then((res) => { this.setState({ dataGeneros: res.data });
+          console.log(res);
+        })
+        .catch((err) => { console.log(err) })
+
+
+  //M.M
+  //      
+        axios.get(URLcompra)
+       .then((res) => { this.setState({ dataCompras: res.data });
+        console.log(res);
+        })
+        .catch((err) => { console.log(err) })
+  
+  
+  //M.M
+  //
+        axios.get(URLusuarios)
+        .then((res) => { this.setState({ dataUsuarios: res.data });
+          console.log(res);
+        })
+        .catch((err) => { console.log(err) })
+    }   
+//M.M
+//      
+      handleChangeGenero(e) {
+        this.setState({
+          crearGenero: {
+           ...this.state.crearGenero,
+           nombre: e.target.value
+     }
+    });
+  }
+    
+      handleSubmitGenero(e) {
+        e.preventDefault();
+        const genero = { nombre: this.state.crearGenero.nombre }
+        const URLgenero = "http://localhost:3030/api/generos";
+          axios.post(URLgenero, genero)
+          .then((res) => {
+            console.log("Estatus:", res.status);
+            console.log("Datos:", res.data);
+          } 
+          )
+          .catch((err) => {
+           console.log("Error:", err);
+           })
+    }
+
+
+//M.M
+//    
+     handleChangeJuego(e) {
+       const nombre = e.target.name;
+       const valor = e.target.value;
+
+        this.setState(prevState => ({
+            crearJuego: {
+              ...prevState.crearJuego,
+              [nombre]: valor
+            }
+        
+        }))
+  }
+      
+
+    handleSubmitJuego(e) {
+        e.preventDefault();
+        const juego = this.state.hazUnComentario;
+        const URLjuego = "http://localhost:3030/api/juegos";
+          axios.post(URLjuego, juego)
+          .then((res) => {
+            console.log("Estatus:", res.status);
+            console.log("Datos:", res.data);
+          } 
+          )
+          .catch((err) => {
+           console.log("Error:", err);
+           })
+    }
+
+
+    handleChangeComentario(e) {
+      const target = e.target;
+      const valor = target.type === 'checkbox' ? target.checked : target.value;
+      const nombre = target.name;
+
+       this.setState(prevState => ({
+          hazUnComentario: {
+             ...prevState.hazUnComentario,
+             [nombre]: valor
+           }
+       
+       }))
+ }
+     
+
+   handleSubmitComentario(e) {
+       e.preventDefault();
+       const comentario = this.state.hazUnComentario;
+       const URLcomentario = "http://localhost:3030/api/comentarios";
+         axios.post(URLcomentario, comentario)
+         .then((res) => {
+           console.log("Estatus:", res.status);
+           console.log("Datos:", res.data);
+         } 
+         )
+         .catch((err) => {
+          console.log("Error:", err);
+          })
+   }
 
 // M.M
 // Uso del metodo render para mostrar los datos y idear la interfaz para poder manipular esos datos 
@@ -101,8 +223,7 @@ class App extends Component {
           </>
         ); 
      }
-  }
-
+  }  
 
 export default App;
 
