@@ -6,7 +6,9 @@ class VerJuegosAdmin extends Component {
     }
     state = {  }
     render() { 
-        return (  );
+        return ( <>
+        
+        </> );
     }
 }
  
