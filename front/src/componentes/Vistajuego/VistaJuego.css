@@ -1,3 +1,6 @@
-* {
-    background-color: #272C38;
+.vista-juego-container {
+    width: 100%;
+    min-height: 100vh;
+    background: #1c1c1c;
+    padding-bottom: 40px;
 }

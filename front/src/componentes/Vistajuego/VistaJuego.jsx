@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import InformaciondeJuego from "../InformaciondeJuego/InformaciondeJuego"
 import Comentarios from '../Comentarios/Comentarios';
 
-import "./VistaJuego";
+import "./VistaJuego.css";
 
 class VistaJuego extends Component {
     constructor(props) {
@@ -17,12 +17,15 @@ class VistaJuego extends Component {
        const juego = this.props.dataJuego;
        const comentarios = this.props.dataComentario;
 
-       const juegoEspecifico = juego.find(j => String(j.id) === String(id));
-       const comentariosDelJuego = comentarios.filter(c => String(c.ID_juego) === String(id));
+       const juegoEspecifico = juego.find(juego => String(juego.id) === String(id));
+       const comentariosDelJuego = comentarios.filter(comen => String(comen.ID_juego) === String(id));
 
         return ( <>
                 <InformaciondeJuego juego={juegoEspecifico} />
-                <Comentarios comentarios={comentariosDelJuego}/>
+                <Comentarios comentarios={comentariosDelJuego} 
+                hacerComentario={this.props.hacerComentario}
+                handleChangeComentarios={this.props.handleChangeComentario} 
+                handleSubmitComentarios={this.props.handleSubmitComentario} />
               </> );
     }
 }

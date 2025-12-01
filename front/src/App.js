@@ -37,6 +37,8 @@ class App extends Component {
           dataGeneros: [],
           dataUsuarios: [],
 
+          cantidadJuegosCompra: [],
+
           informacionUsuarios: {
             nombreUsuario: "",
             contraseña: "",
@@ -69,6 +71,8 @@ class App extends Component {
         this.handleSubmitGenero = this.handleSubmitGenero.bind(this);
         this.handleChangeJuego = this.handleChangeJuego.bind(this);
         this.handleSubmitJuego = this.handleSubmitJuego.bind(this);
+        this.handleChangeComentario = this.handleChangeComentario.bind(this);
+        this.handleSubmitComentario = this.handleSubmitComentario.bind(this);
         this.handleChangeUsuario = this.handleChangeUsuario.bind(this);
         this.handleSubmitUsuario = this.handleSubmitUsuario.bind(this)
         this.seleccionarUsuario = this.seleccionarUsuario.bind(this);  
@@ -156,9 +160,26 @@ class App extends Component {
     }
 
 
-      editGenero(e) {
+      updateDtaGenero(e) {
+        e.preventDefault();
+         
+        const id = this.state.generoSeleccionado.id;
+        const data = { nombre: this.state.crearGenero.nombre };
         
-      }        
+          axios.put(`http://localhost:3030/api/generos/${id}`, data)
+          .then(response => {console.log("Género actualizado:", response.data)
+           this.setState(prev => ({
+            dataGeneros: prev.dataGeneros.map(genero =>
+              genero.id === id ? { ...genero, nombre: data.nombre } : genero
+            ),
+            generoSeleccionado: null, 
+            crearGenero: { nombre: "" }
+           }))})
+          .catch(error => {
+              this.setState({ errorMessage: error.message });
+              console.error('There was an error!', error);
+          });
+       }        
 
 //M.M
 //    
@@ -176,7 +197,7 @@ class App extends Component {
   }
       
 
-    handleSubmitJuego(e) {
+    handleSubmitJuego(e, comentario) {
         e.preventDefault();
         const juego = this.state.crearJuego;
         const URLjuego = "http://localhost:3030/api/juegos";
@@ -184,20 +205,44 @@ class App extends Component {
           .then((res) => {
             console.log("Estatus:", res.status);
             console.log("Datos:", res.data);
+            console.log("Enviando comentario:", comentario);
           } 
           )
           .catch((err) => {
            console.log("Error:", err);
            })
-    }
+  }
+
+
+  updateDtaJuego(e) {
+    e.preventDefault();
+     
+    const id = this.state.generoSeleccionado.id;
+    const data = { nombre: this.state.crearGenero.nombre };
+    
+      axios.put(`http://localhost:3030/api/generos/${id}`, data)
+      .then(response => {console.log("Género actualizado:", response.data)
+       this.setState(prev => ({
+        dataGeneros: prev.dataGeneros.map(genero =>
+          genero.id === id ? { ...genero, nombre: data.nombre } : genero
+        ),
+        generoSeleccionado: null, 
+        crearGenero: { nombre: "" }
+       }))})
+      .catch(error => {
+          this.setState({ errorMessage: error.message });
+          console.error('There was an error!', error);
+      });
+   }        
+   
+
 
 //M.M
 //    
 
-    handleChangeComentario(e) {
-      const target = e.target;
-      const valor = target.type === 'checkbox' ? target.checked : target.value;
-      const nombre = target.name;
+  handleChangeComentario(e) {
+      const nombre = e.target.name;
+      const valor = e.target.value;
 
        this.setState(prevState => ({
           hazUnComentario: {
@@ -209,9 +254,18 @@ class App extends Component {
    }
      
 
-   handleSubmitComentario(e) {
-       e.preventDefault();
-       const comentario = this.state.hazUnComentario;
+   handleSubmitComentario(e, idJuego) {
+    e.preventDefault();
+    const comentario = {
+        ...this.state.hazUnComentario,
+        recomienda: this.state.hazUnComentario.recomienda ? 1 : 0,
+        ID_juego: Number(idJuego),
+        ID_usuario: 1
+      };
+
+      console.log("Comentario que se envía:", comentario);
+      console.log("Valor recomienda:", this.state.hazUnComentario.recomienda);
+
        const URLcomentario = "http://localhost:3030/api/comentarios";
          axios.post(URLcomentario, comentario)
          .then((res) => {
@@ -223,6 +277,29 @@ class App extends Component {
           console.log("Error:", err);
           })
    }
+
+
+   updateDtaComentario(e) {
+    e.preventDefault();
+     
+    const id = this.state.generoSeleccionado.id;
+    const data = { nombre: this.state.crearGenero.nombre };
+    
+      axios.put(`http://localhost:3030/api/generos/${id}`, data)
+      .then(response => {console.log("Género actualizado:", response.data)
+       this.setState(prev => ({
+        dataGeneros: prev.dataGeneros.map(genero =>
+          genero.id === id ? { ...genero, nombre: data.nombre } : genero
+        ),
+        generoSeleccionado: null, 
+        crearGenero: { nombre: "" }
+       }))})
+      .catch(error => {
+          this.setState({ errorMessage: error.message });
+          console.error('There was an error!', error);
+      });
+   }        
+
 
 
    //M.M
@@ -241,11 +318,11 @@ class App extends Component {
       }       
      
 
-   handleSubmitUsuario(e) {
+    handleSubmitUsuario(e) {
        e.preventDefault();
        const usuario = this.state.informacionUsuarios;
-       const URLuauario = "http://localhost:3030/api/usuarios";
-         axios.post(URLcomentario, usuario)
+       const URLusuario = "http://localhost:3030/api/usuarios";
+         axios.post(URLusuario, usuario)
          .then((res) => {
            console.log("Estatus:", res.status);
            console.log("Datos:", res.data);
@@ -261,6 +338,19 @@ class App extends Component {
     this.setState({ usuarioSeleccionado: usuario });
    }
   
+
+   seleccionarGenero(genero) {
+    this.setState({ 
+      generoSeleccionado: genero,
+      crearGenero: { nombre: genero.nombre } });
+   }
+
+   seleccionarJuego(genero) {
+    this.setState({ 
+      generoSeleccionado: genero,
+      crearGenero: { nombre: genero.nombre } });
+   }
+
 // M.M
 // Uso del metodo render para mostrar los datos y idear la interfaz para poder manipular esos datos 
      render () {
@@ -273,7 +363,8 @@ class App extends Component {
 
                   <Route path="/VistadeJuego/:id" render={(props) => <VistaJuego {...props} 
                   dataJuego={this.state.dataJuegos} 
-                  dataComentario={this.state.dataComentarios} 
+                  dataComentario={this.state.dataComentarios}
+                  comentarioActual={this.state.hazUnComentario} 
                   handleChangeComentario={this.handleChangeComentario}
                   handleSubmitComentario={this.handleSubmitComentario} />} />
                   
@@ -281,11 +372,11 @@ class App extends Component {
                   
                   <Route path="/Loggin" render={(props) => <Loggin {...props} 
                   informacionUsuario={this.state.informacionUsuarios}  
-                  handleChangeUsuario={this.handleChangeComentario}
-                  handleSubmitUsuario={this.handleSubmitComentario} /> } />
+                  handleChangeUsuario={this.handleChangeUsuario}
+                  handleSubmitUsuario={this.handleSubmitUsuario} /> } />
                   
                   <Route path="/VistaAdmin" render={(props) => <VistadeAdministrador {...props} 
-                  valorGenero={this.state.crearGenero.nombre}
+                  valorGenero={this.state.crearGenero}
                   handleChangeGenero={this.handleChangeGenero}
                   handleSubmitGenero={this.handleSubmitGenero}
                   valorJuego={this.state.crearJuego}
@@ -299,8 +390,13 @@ class App extends Component {
                   dataCompra={this.state.dataCompras}
                   usuarioSeleccionado={this.state.usuarioSeleccionado}
                   seleccionarUsuario={this.seleccionarUsuario}
+                  generoSeleccionado={this.state.generoSeleccionado}
+                  seleccionarGenero={this.seleccionarGenero}
+                  juegoSeleccionado={this.state.juegoSeleccionado}
+                  seleccionarJuego={this.seleccionarJuego}
                   formularioGenero={this.handleChangeGenero} 
-                  crearGenero={this.handleSubmitGenero}/> } />
+                  crearGenero={this.handleSubmitGenero}
+                  updateDtaGenero={this.updateDtaGenero}/> } />
                 </Switch>
 
           </Router>
@@ -310,4 +406,3 @@ class App extends Component {
   }  
 
 export default App;
-
