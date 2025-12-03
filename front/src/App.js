@@ -60,6 +60,7 @@ class App extends Component {
                   <Route path="/VistadeJuego" element={<VistaJuego />} /> 
                   <Route path="/Carrito" element={<Carrito />} /> 
                   <Route path="/Login" element={<Login />} />
+                  <Route path="/resultadoDeBusqueda" element={<ResultadodeBusqueda />} />
                 </Routes>
           </Router>
           </>
