@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 
 class EdiciondeGenero extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
     }
 
     render() { 
+
+       if(!this.props.genero) return null;
+
         return ( <>
         <div className="contenedor-principal">
-            <div className="titulo-genero"> 
-            <h3>Añadir nuevo genero</h3>
-            </div>
-                <div className="formulario-genero">
-                    <form className="CreacionGenero-formulario"> 
-                        <input className="CreacionGenero-input" type="text" />
-                    </form>
-                </div>
+            <h3>Editar Genero</h3>
+            <form className="EdicionGenero-formulario" onSubmit={this.props.updateDtaGenero}> 
+                <input type="text" className="EdicionGenero-input" value={this.props.genero} onChange={this.props.handleChangeGenero} />
+                <input type="submit" value="Editar" />
+            </form>
         </div>
         </> );
     }

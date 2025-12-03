@@ -51,6 +51,7 @@ class App extends Component {
             recomienda: true,
             resena: ""   
           },
+          comentarioSeleccionado: null,
 
           crearGenero: {
             nombre: ""
@@ -63,7 +64,10 @@ class App extends Component {
             precio: "",
             genero: ""
           },
-          juegoSeleccionado: null
+          juegoSeleccionado: null,
+
+          mostrarCreacionGenero: false,
+          mostrarCreacionJuego: false
 
         }
 
@@ -76,7 +80,11 @@ class App extends Component {
         this.handleChangeUsuario = this.handleChangeUsuario.bind(this);
         this.handleSubmitUsuario = this.handleSubmitUsuario.bind(this)
         this.seleccionarUsuario = this.seleccionarUsuario.bind(this);  
-
+        this.seleccionarGenero = this.seleccionarGenero.bind(this); 
+        this.seleccionarJuego = this.seleccionarJuego.bind(this);
+        this.seleccionarComentario = this.seleccionarComentario.bind(this)
+        this.visualizarFormuarioGenero = this.visualizarFormuarioGenero.bind(this);
+        this.visualizarFormuarioJuego = this.visualizarFormuarioJuego.bind(this);
 
 }
 
@@ -345,10 +353,30 @@ class App extends Component {
       crearGenero: { nombre: genero.nombre } });
    }
 
-   seleccionarJuego(genero) {
-    this.setState({ 
-      generoSeleccionado: genero,
-      crearGenero: { nombre: genero.nombre } });
+   seleccionarJuego(juego) {
+    this.setState({ juegoSeleccionado: juego});
+   }
+
+   seleccionarComentario(comentario) {
+    this.setState({ comentarioSeleccionado: comentario});
+   }
+
+
+//M.M
+//
+
+   visualizarFormuarioGenero () {
+    this.setState(prevState => ({
+      mostrarCreacionGenero: !prevState.mostrarCreacionGenero,
+      mostrarCreacionJuego: false 
+    })) 
+   }
+
+   visualizarFormuarioJuego () {
+    this.setState(prevState => ({
+      mostrarCreacionJuego: !prevState.mostrarCreacionJuego,
+      mostrarCreacionGenero: false 
+    })) 
    }
 
 // M.M
@@ -385,7 +413,7 @@ class App extends Component {
                   dataUsuario={this.state.dataUsuarios} 
                   imagenUsuario={this.state.fotoDePerfil}
                   dataGenero={this.state.dataGeneros}
-                  dataJuego={this.state.dataJuegos}
+                  dataJuegos={this.state.dataJuegos}
                   dataComentario={this.state.dataComentarios}
                   dataCompra={this.state.dataCompras}
                   usuarioSeleccionado={this.state.usuarioSeleccionado}
@@ -394,9 +422,15 @@ class App extends Component {
                   seleccionarGenero={this.seleccionarGenero}
                   juegoSeleccionado={this.state.juegoSeleccionado}
                   seleccionarJuego={this.seleccionarJuego}
+                  comentarioSeleccionado={this.state.comentarioSeleccionado}
+                  seleccionarComentario={this.seleccionarComentario}
                   formularioGenero={this.handleChangeGenero} 
                   crearGenero={this.handleSubmitGenero}
-                  updateDtaGenero={this.updateDtaGenero}/> } />
+                  updateDtaGenero={this.updateDtaGenero}
+                  mostrarCreacionJuego={this.state.mostrarCreacionJuego}
+                  visualizarFormuarioJuego={this.visualizarFormuarioJuego}
+                  mostrarCreacionGenero={this.state.mostrarCreacionGenero}
+                  visualizarFormuarioGenero={this.visualizarFormuarioGenero}/> } />
                 </Switch>
 
           </Router>
@@ -406,3 +440,4 @@ class App extends Component {
   }  
 
 export default App;
+
