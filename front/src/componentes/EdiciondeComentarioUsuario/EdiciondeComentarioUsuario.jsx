@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class EdiciondeComentario extends Component {
+class EdiciondeComentarioUsuario extends Component {
     constructor() {
         super();
     }
@@ -23,4 +23,4 @@ class EdiciondeComentario extends Component {
     }
 }
  
-export default EdiciondeComentario;
+export default EdiciondeComentarioUsuario;

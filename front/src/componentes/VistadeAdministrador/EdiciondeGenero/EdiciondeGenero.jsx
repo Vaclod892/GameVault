@@ -8,10 +8,14 @@ class EdiciondeGenero extends Component {
     render() { 
         return ( <>
         <div className="contenedor-principal">
+            <div className="titulo-genero"> 
             <h3>Añadir nuevo genero</h3>
-            <form className="CreacionGenero-formulario"> 
-                <input className="CreacionGenero-input" type="text" />
-            </form>
+            </div>
+                <div className="formulario-genero">
+                    <form className="CreacionGenero-formulario"> 
+                        <input className="CreacionGenero-input" type="text" />
+                    </form>
+                </div>
         </div>
         </> );
     }
