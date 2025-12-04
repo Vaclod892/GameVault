@@ -1,0 +1,73 @@
+
+.lista-juegos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px;
+    background-color: #2a2a4a; 
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.juego-tarjeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3f3f6f; 
+    padding: 15px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+    border-left: 5px solid #e94560; 
+}
+
+.juego-tarjeta:hover {
+    background-color: #4a4a7f;
+}
+
+.juego-info {
+    flex-grow: 1;
+}
+
+.juego-titulo {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin: 0;
+    color: #e4e6eb;
+}
+
+.juego-precio {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.juego-botones {
+    display: flex;
+    gap: 10px;
+}
+
+.juego-botones button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.boton-editar {
+    background-color: #e94560;
+    color: white;
+}
+
+.boton-editar:hover {
+    background-color: #d13853;
+}
+
+.boton-eliminar {
+    background-color: #5d5d81;
+    color: white;
+}
+
+.boton-eliminar:hover {
+    background-color: #4a4a6f;
+}

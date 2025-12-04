@@ -20,7 +20,6 @@ import Carrito from "./componentes/Carrito/Carrito"
 import VistadeAdministrador from './componentes/VistadeAdministrador/VistadeAdministrador';
 import Login from "./componentes/Login/Login"
 
-
 // function App() {
 //return (
 
@@ -52,29 +51,35 @@ class App extends Component {
       },
       fotoDePerfil: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQayIn4Sk056effKpGGnLYBdsIrLGI7Q5s9MA&s",
       usuarioSeleccionado: null,
-
       hazUnComentario: {
         recomienda: true,
         resena: ""
       },
+      comentarioSeleccionado: null,
 
       crearGenero: {
         nombre: ""
       },
       generoSeleccionado: null,
-
       crearJuego: {
         titulo: "",
         descripcion: "",
         precio: "",
         genero: ""
       },
-      juegoSeleccionado: null
+      juegoSeleccionado: null,
+
+      mostrarCreacionGenero: false,
+      mostrarCreacionJuego: false
+
+
+
 
     }
     this.handleChangeLogin = this.handleChangeLogin.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChangeGenero = this.handleChangeGenero.bind(this);
+    this.updateDtaGenero = this.updateDtaGenero.bind(this);
     this.handleSubmitGenero = this.handleSubmitGenero.bind(this);
     this.handleChangeJuego = this.handleChangeJuego.bind(this);
     this.handleSubmitJuego = this.handleSubmitJuego.bind(this);
@@ -83,8 +88,11 @@ class App extends Component {
     this.handleChangeUsuario = this.handleChangeUsuario.bind(this);
     this.handleSubmitUsuario = this.handleSubmitUsuario.bind(this)
     this.seleccionarUsuario = this.seleccionarUsuario.bind(this);
-    this.updateDtaGenero = this.updateDtaGenero.bind(this);
-
+    this.seleccionarGenero = this.seleccionarGenero.bind(this);
+    this.seleccionarJuego = this.seleccionarJuego.bind(this);
+    this.seleccionarComentario = this.seleccionarComentario.bind(this)
+    this.visualizarFormuarioGenero = this.visualizarFormuarioGenero.bind(this);
+    this.visualizarFormuarioJuego = this.visualizarFormuarioJuego.bind(this);
 
   }
 
@@ -372,6 +380,28 @@ class App extends Component {
     });
   }
 
+  seleccionarComentario(comentario) {
+    this.setState({ comentarioSeleccionado: comentario });
+  }
+
+
+  //M.M
+  //
+
+  visualizarFormuarioGenero() {
+    this.setState(prevState => ({
+      mostrarCreacionGenero: !prevState.mostrarCreacionGenero,
+      mostrarCreacionJuego: false
+    }))
+  }
+
+  visualizarFormuarioJuego() {
+    this.setState(prevState => ({
+      mostrarCreacionJuego: !prevState.mostrarCreacionJuego,
+      mostrarCreacionGenero: false
+    }))
+  }
+
   // Maneja los cambios en los inputs del Login
   handleChangeLogin(e) {
     const { name, value } = e.target;
@@ -406,86 +436,91 @@ class App extends Component {
   }
 
 
+
+
   // M.M
   // Uso del metodo render para mostrar los datos y idear la interfaz para poder manipular esos datos 
   render() {
-    return (
-      <Router>
-        <Switch>
-          {/* Ruta Home */}
-          <Route exact path="/" component={Home} />
+  return (
+    <Router>
+      <Switch>
+        {/* Ruta Home */}
+        <Route exact path="/" component={Home} />
 
-          {/* Ruta VistaJuego con props */}
-          <Route path="/VistaDeJuego/:id" render={(props) => (
-            <VistaJuego
-              {...props}
-              dataJuego={this.state.dataJuegos}
-              dataComentario={this.state.dataComentarios}
-              comentarioActual={this.state.hazUnComentario}
-              handleChangeComentario={this.handleChangeComentario}
-              handleSubmitComentario={this.handleSubmitComentario}
-            />
-          )} />
+        {/* Ruta VistaJuego con props */}
+        <Route path="/VistaDeJuego/:id" render={(props) => (
+          <VistaJuego
+            {...props}
+            dataJuego={this.state.dataJuegos}
+            dataComentario={this.state.dataComentarios}
+            comentarioActual={this.state.hazUnComentario}
+            handleChangeComentario={this.handleChangeComentario}
+            handleSubmitComentario={this.handleSubmitComentario}
+          />
+        )} />
 
-          {/* Carrito */}
-          <Route path="/Carrito" render={(props) => (
-            <Carrito
-              {...props}
-              usuario={this.state.usuarioSeleccionado}
-            />
-          )} />
+        {/* Carrito */}
+        <Route path="/Carrito" render={(props) => (
+          <Carrito
+            {...props}
+            usuario={this.state.usuarioSeleccionado}
+          />
+        )} />
 
-          {/* Ruta LOGIN con una G */}
-          <Route path="/Login" render={(props) => (
-            <Login
-              {...props} // Importante: pasa history, match, location
+        {/* Ruta LOGIN con una G */}
+        <Route path="/Login" render={(props) => (
+          <Login
+            {...props} // Importante: pasa history, match, location
 
-              // Props para REGISTRO (que ya tenías)
-              informacionUsuario={this.state.informacionUsuarios}
-              handleChangeUsuario={this.handleChangeUsuario}
-              handleSubmitUsuario={this.handleSubmitUsuario}
+            // Props para REGISTRO (que ya tenías)
+            informacionUsuario={this.state.informacionUsuarios}
+            handleChangeUsuario={this.handleChangeUsuario}
+            handleSubmitUsuario={this.handleSubmitUsuario}
 
-              // Props para LOGIN (Nuevas)
-              loginForm={this.state.loginForm}
-              handleChangeLogin={this.handleChangeLogin}
-              handleLogin={this.handleLogin}
-            />
-          )} />
+            // Props para LOGIN (Nuevas)
+            loginForm={this.state.loginForm}
+            handleChangeLogin={this.handleChangeLogin}
+            handleLogin={this.handleLogin}
+          />
+        )} />
 
-          {/* Ruta Admin (La más larga) */}
-          <Route path="/VistaAdmin" render={(props) => (
-            <VistadeAdministrador
-              {...props}
-              valorGenero={this.state.crearGenero}
-              handleChangeGenero={this.handleChangeGenero}
-              handleSubmitGenero={this.handleSubmitGenero}
-              valorJuego={this.state.crearJuego}
-              handleChangeJuego={this.handleChangeJuego}
-              handleSubmitJuego={this.handleSubmitJuego}
-              dataUsuario={this.state.dataUsuarios}
-              imagenUsuario={this.state.fotoDePerfil}
-              dataGenero={this.state.dataGeneros}
-              dataJuego={this.state.dataJuegos}
-              dataComentario={this.state.dataComentarios}
-              dataCompra={this.state.dataCompras}
-              usuarioSeleccionado={this.state.usuarioSeleccionado}
-              seleccionarUsuario={this.seleccionarUsuario}
-              generoSeleccionado={this.state.generoSeleccionado}
-              seleccionarGenero={this.seleccionarGenero}
-              juegoSeleccionado={this.state.juegoSeleccionado}
-              seleccionarJuego={this.seleccionarJuego}
-              formularioGenero={this.handleChangeGenero}
-              crearGenero={this.handleSubmitGenero}
-              updateDtaGenero={this.updateDtaGenero}
-            />
-          )} />
+        {/* Ruta Admin (La más larga) */}
+  <Route path="/VistaAdmin" render={(props) => <VistadeAdministrador {...props}
+    valorGenero={this.state.crearGenero}
+    handleChangeGenero={this.handleChangeGenero}
+    handleSubmitGenero={this.handleSubmitGenero}
+    valorJuego={this.state.crearJuego}
+    handleChangeJuego={this.handleChangeJuego}
+    handleSubmitJuego={this.handleSubmitJuego}
+    dataUsuario={this.state.dataUsuarios}
+    imagenUsuario={this.state.fotoDePerfil}
+    dataGenero={this.state.dataGeneros}
+    dataJuegos={this.state.dataJuegos}
+    dataComentario={this.state.dataComentarios}
+    dataCompra={this.state.dataCompras}
+    usuarioSeleccionado={this.state.usuarioSeleccionado}
+    seleccionarUsuario={this.seleccionarUsuario}
+    generoSeleccionado={this.state.generoSeleccionado}
+    seleccionarGenero={this.seleccionarGenero}
+    juegoSeleccionado={this.state.juegoSeleccionado}
+    seleccionarJuego={this.seleccionarJuego}
+    comentarioSeleccionado={this.state.comentarioSeleccionado}
+    seleccionarComentario={this.seleccionarComentario}
+    formularioGenero={this.handleChangeGenero}
+    crearGenero={this.handleSubmitGenero}
+    updateDtaGenero={this.updateDtaGenero}
+    mostrarCreacionJuego={this.state.mostrarCreacionJuego}
+    visualizarFormuarioJuego={this.visualizarFormuarioJuego}
+    mostrarCreacionGenero={this.state.mostrarCreacionGenero}
+    visualizarFormuarioGenero={this.visualizarFormuarioGenero} />} />
 
-          {/* Si tenías una ruta de Resultados de Búsqueda antigua, iría aquí */}
+        {/* Si tenías una ruta de Resultados de Búsqueda antigua, iría aquí */}
 
-        </Switch>
-      </Router>
-    );
-  }
+      </Switch>
+    </Router>
+  );
+}
 }
 
 export default App;
+

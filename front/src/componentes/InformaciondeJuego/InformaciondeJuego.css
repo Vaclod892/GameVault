@@ -1,43 +1,104 @@
+
+
 .contenedorprincipal {
-    width: 85%;
-    margin: 30px auto;
-    display: flex;
-    flex-direction: column;
-    background: #2a2a2a;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 10px rgba(0,0,0,0.35);
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 20px;
 }
 
-.informacion h2 {
-    font-size: 32px;
+.layout-dos-columnas {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px; 
+}
+
+
+.columna-principal {
+    
+}
+
+.titulo-juego {
+    color: white;
     margin-bottom: 10px;
-    text-align: center;
+    font-size: 2em;
+}
+
+.imagen-prin {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.mini-galeria {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.mini-galeria img {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 3px;
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 .infodescripcion {
-    font-size: 18px;
-    line-height: 1.5;
+    background-color: #1c1c1c; 
+    color: #ccc;
+    padding: 15px;
+    border-radius: 5px;
     margin-top: 20px;
 }
 
-.precio {
-    margin-top: 25px;
+.columna-lateral {
+
+}
+
+.detalles-juego {
+    background-color: #1c1c1c;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.detalles-juego h3 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.precio-compra {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #333; 
 }
 
 .precio-original {
     text-decoration: line-through;
-    font-size: 16px;
-    color: #bbbbbb;
+    color: #888;
+    font-size: 0.9em;
 }
 
-.precio-descuento {
-    font-size: 22px;
+.precio-descuento-lateral {
+    color: #4CAF50; 
+    font-size: 1.5em;
     font-weight: bold;
-    color: #4cd964;
+    margin-bottom: 10px;
 }
+
+.boton-comprar {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+

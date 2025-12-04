@@ -6,12 +6,9 @@ class InformaciondeJuego extends Component {
     constructor(props) {
         super(props);
 
-       // this.state = {
-       //     titulo: "The Last of Us Parte 1",
-       //     descripcion: "The Last of Us Parte I es un videojuego de acción-aventura y survival horror en tercera persona que narra la historia de Joel y Ellie en un mundo postapocalíptico devastado por una pandemia de infección por Cordyceps. Joel, un contrabandista, debe proteger a Ellie, una joven que podría ser la clave para una cura, mientras viajan a través de Estados Unidos. El juego ofrece gráficos mejorados, mecánicas de juego modernizadas y controles mejorados.",
-       //     precio: "20.000",
-       //     imageURL: "https://trome.com/resizer/v2/WI6B3VAFMBECTJLMGTIX2GDOQY.webp?auth=baa3daab768c4a4daae2d053a1893cbac6e21803556fa45ea66d0c9fc6a45e3b&width=1920&height=1200&quality=90&smart=true"    
-       // }
+       this.state = {
+           imageURL: "https://static.wikia.nocookie.net/callofduty/images/f/fa/Giant_mech_Origins_BOII.png/revision/latest?cb=20130827204332"    
+        }
     }
     
     render() { 
@@ -21,18 +18,35 @@ class InformaciondeJuego extends Component {
 
        return ( <>
         <div className="contenedorprincipal">
-          <div className="informacion">
-            <h2>{ juegos.titulo }</h2>
-          </div>
-          <div className="infodescripcion">
-            <p>{ juegos.descripcion }</p>
-            <div className="precio">
-                <span className="precio-original">Precio Original: $70.000</span>   
-                <span className="precio-descuento">Precio con descuento: {juegos.precio}</span>     
+                <div className="layout-dos-columnas"> 
+                    
+                    <div className="columna-principal"> 
+                        <div className="imagen-vistajuego">
+                            <h2 className="titulo-juego">{juegos.Titulo}</h2>
+                            <img src={this.state.imageURL} className="imagen-prin" alt="Imagen Principal"></img>
+                        </div>
+                        <div className="infodescripcion">
+                            <p>{juegos.Descripcion}</p>
+                        </div>
+                    </div>
+
+                    <div className="columna-lateral"> 
+                        <div className="detalles-juego">
+                            <h3>Plataformas: 🎮</h3>
+                            <p>Plataformas: 3</p>
+                            <h3>Género: Aventura</h3>
+                            <p>Un jugador</p>
+                            <div className="precio-compra">
+                                <span className="precio-original">$70.000</span>
+                                <span className="precio-descuento-lateral">$20.000</span>
+                                <button className="boton-comprar">🛒 Agregar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>   
-        </div>
-      </> )}; 
-}      
+      </> ) 
+   }      
+}
 
 export default InformaciondeJuego;

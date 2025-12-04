@@ -10,24 +10,32 @@ class VistaJuego extends Component {
         super(props);
     }
 
-    render() {
+render() {
+    const { id } = this.props.match.params;
+  
+    const juegos = this.props.dataJuego || [];        
+    const comentarios = this.props.dataComentario || []; 
+  
+    const juegoEspecifico = juegos.find(juego => String(juego.ID_Juego) === String(id));
+  
+    const comentariosDelJuego = comentarios.filter(comen => Number(comen.ID_juego) === Number(id) );
 
-       const { id } = this.props.match.params;
-       
-       const juego = this.props.dataJuego;
-       const comentarios = this.props.dataComentario;
-
-       const juegoEspecifico = juego.find(juego => String(juego.id) === String(id));
-       const comentariosDelJuego = comentarios.filter(comen => String(comen.ID_juego) === String(id));
-
-        return ( <>
-                <InformaciondeJuego juego={juegoEspecifico} />
-                <Comentarios comentarios={comentariosDelJuego} 
-                hacerComentario={this.props.hacerComentario}
-                handleChangeComentarios={this.props.handleChangeComentario} 
-                handleSubmitComentarios={this.props.handleSubmitComentario} />
-              </> );
-    }
-}
+    return (
+      <>
+        <div className="contenedor-principal">
+          <InformaciondeJuego juego={juegoEspecifico} />
+          <Comentarios
+            comentarios={comentariosDelJuego}
+            comentarioActual={this.props.comentarioActual}
+            handleChangeComentario={this.props.handleChangeComentario}
+            handleSubmitComentario={(e) => this.props.handleSubmitComentario(e, id)}
+            idJuego={id}
+          />
+        </div>
+      </>
+    );
+  }
+    
+}     
  
 export default VistaJuego;

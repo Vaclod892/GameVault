@@ -1,0 +1,172 @@
+.contenedor-principal-admin { 
+    padding: 20px;
+    background-color: #1A1A2E; /* Fondo oscuro, como en la imagen deseada */
+    min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    color: #E4E6EB; /* Texto claro */
+}
+
+.admin-header {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #E4E6EB; /* Texto claro */
+    border-bottom: 2px solid #2A2A4A; /* Borde oscuro */
+    padding-bottom: 15px;
+}
+
+.admin-header h1 {
+    font-size: 2.5em;
+    margin: 0;
+    color: #E94560; 
+}
+
+.admin-creation-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #2A2A4A;
+    border-radius: 12px;
+    background-color: #2A2A4A; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ver-secciones { 
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+    .ver-secciones {
+        grid-template-columns: 3fr 1fr;
+    }
+    
+    .ver-secciones > div:nth-child(3) {
+        grid-column: 1 / span 2;
+    }
+}
+
+.tarjetas-juegos, 
+.tarjetas-Generos, 
+.tarjetas-usuarios {
+    background-color: #2A2A4A; 
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    border-top: 5px solid #E94560;
+    height: 100%; 
+}
+
+.tarjetas-juegos h3, 
+.tarjetas-Generos h3, 
+.tarjetas-usuarios h3 {
+    color: #E94560;
+    font-size: 1.5em;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3F3F6F;
+    margin-bottom: 15px;
+}
+
+.header-tarjeta-admin {
+    display: 'flex';
+    justify-content: 'space-between'; 
+    align-items: 'center';
+    padding-Bottom: '10px';
+    border-Bottom: '1px solid #3F3F6F';
+    margin-Bottom: '15px';
+}
+
+.titulo-juego, titulo-genero {
+    color: '#E94560';
+    font-size: '1.5em';
+    margin: '0';
+}
+
+.boton-crear-juego, .boton-crear-genero {
+    background-color: #38A169;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 32px;
+    height: 32px;
+    line-height: 1;
+    padding: 0;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    flex-shrink: 0; 
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+    
+    .boton-crear-juego:hover, .boton-crear-genero:hover {
+    background-color: #2F855A;
+    transform: scale(1.05);
+    }
+
+.dashboard-card {
+    background-color: #2A2A4A;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    border-top: 5px solid #E94560;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: #E4E6EB;
+}
+
+.dashboard-card h2 {
+    color: #E94560;
+    font-size: 1.5em;
+    margin-top: 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #3F3F6F;
+}
+
+.btn-editar, .btn-eliminar {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    margin-left: 10px;
+}
+
+.btn-editar {
+    background-color: #E94560; 
+    color: white;
+}
+
+.btn-eliminar {
+    background-color: #3F3F6F; 
+    color: white;
+}
+
+.btn-editar:hover, .btn-eliminar:hover {
+    opacity: 0.8;
+}
+
+.popup-admin {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #3F3F6F;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    max-width: 400px;
+    width: 90%;
+    color: #E4E6EB;
+}

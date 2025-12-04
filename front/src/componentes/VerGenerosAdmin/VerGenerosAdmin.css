@@ -1,0 +1,37 @@
+
+.contenedor-pricipal {
+    padding: 10px;
+    background-color: #2a2a4a;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.contenedor-generos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.generos {
+    cursor: pointer;
+}
+
+.genero-elemento {
+    background-color: #3f3f6f;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, transform 0.1s;
+    text-align: center;
+}
+
+.genero-elemento p {
+    margin: 0;
+    font-weight: 500;
+    color: #e4e6eb;
+}
+
+.genero-elemento:hover {
+    background-color: #e94560; 
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
