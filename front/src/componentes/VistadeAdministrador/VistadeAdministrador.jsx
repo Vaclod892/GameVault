@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './VistadeAdministrador.css';
 
-import CreaciondeGenero from "../CreaciondeGenero/CreaciondeGenero";
-import CreaciondeJuego from "../CreaciondeJuego/CreaciondeJuego";
-import EdiciondeComentario from "../EdiciondeComentario/EdiciondeComentario";
+import CreaciondeGenero from "./CreaciondeGenero/CreaciondeGenero";
+import CreaciondeJuego from "./CreaciondeJuego/CreaciondeJuego";
+import EdiciondeComentario from "./EdiciondeComentario/EdiciondeComentario";
 import EdiciondeComentarioUsuario from '../EdiciondeComentarioUsuario/EdiciondeComentarioUsuario';
-import EdiciondeGenero from "../EdiciondeGenero/EdiciondeGenero";
-import EdiciondeJuego from "../EdiciondeJuego/EdiciondeJuego";
+import EdiciondeGenero from "./EdiciondeGenero/EdiciondeGenero";
+import EdiciondeJuego from "./EdiciondeJuego/EdiciondeJuego";
 import EdiciondeUsuario from "../EdiciondeUsuario/EdiciondeUsuario";
 import VerJuegosAdmin from "../VerJuegosAdmin/VerJuegosAdmin";
 import VerGenerosAdmin from '../VerGenerosAdmin/VerGenerosAdmin';
