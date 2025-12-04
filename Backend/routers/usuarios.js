@@ -40,19 +40,23 @@ usuarios.post("/login", (req, res) => {
 // M.M
 // 
 usuarios.post("/", (req, res) => {
+  // 1. Agregamos 'foto' a la desestructuración
+  let { nombreUsuario, email, contrasena, foto } = req.body;
 
-  let { nombreUsuario, email, contrasena } = req.body;
-  let values = [nombreUsuario, email, contrasena];
+  // 2. Agregamos 'foto' al array de valores. 
+  // Si no llega foto, ponemos una por defecto.
+  const fotoFinal = foto || "/img/silla-default.jpg"; 
+  let values = [nombreUsuario, email, contrasena, fotoFinal];
 
-  conn.query("INSERT INTO usuarios (nombreUsuario, email, contrasena) VALUES (?, ?, ?)", values, (err, result) => {
+  // 3. Modificamos la consulta SQL
+  conn.query("INSERT INTO usuarios (nombreUsuario, email, contrasena, foto) VALUES (?, ?, ?, ?)", values, (err, result) => {
 
     if (err) {
       res.status(500).json({ error: err.message });
     } else {
-      res.status(200).json({ "message": "El usuario ha sido creado " });
+      res.status(200).json({ "message": "El usuario ha sido creado" });
     }
   })
-
 });
 
 

@@ -4,19 +4,16 @@ import { FaSteam, FaXbox, FaPlaystation, } from 'react-icons/fa'; // V.D. - Icon
 import { SiNintendoswitch, } from 'react-icons/si';
 
 // --- DICCIONARIO DE LOGOS (SVGs Inline) ---
-// Esto permite renderizar iconos sin descargar imagenes externas
 const LOGOS = {
-  PC: <FaSteam size="1.5em" />,           // Usamos el logo de Steam para PC
-  PS5: <FaPlaystation size="1.5em" />,    // Logo de PlayStation
-  PS4: <FaPlaystation size="1.5em" color="black" />,    // Mismo logo para PS4
-  XBOX: <FaXbox size="1.5em" />,          // Logo de Xbox
-  SWITCH: <SiNintendoswitch size="1.5em" />,          // Logo de Xbox
-
+  PC: <FaSteam size="1.5em" />,           
+  PS5: <FaPlaystation size="1.5em" />,    
+  PS4: <FaPlaystation size="1.5em" color="black" />,    
+  XBOX: <FaXbox size="1.5em" />,          
+  SWITCH: <SiNintendoswitch size="1.5em" />,          
 };
 
 const Carrito = (props) => {
 
-  // DATOS SIMULADOS 
   const carritoDePrueba = [
     {
       id: 1,
@@ -93,14 +90,11 @@ const Carrito = (props) => {
   ];
 
   const handleFinalizarCompra = () => {
-    // Verificamos si existe el usuario pasado por props desde App.js
     if (props.usuario) {
-      // AQUÍ IRÍA LA LÓGICA DE COMPRA REAL (conectar con backend)
       alert(`¡Compra realizada con éxito! Gracias ${props.usuario.nombreUsuario}`);
     } else {
-      // Si no está logueado, avisamos y redirigimos
       alert("Debes iniciar sesión para realizar una compra.");
-      props.history.push("/Login"); // Redirige al login
+      props.history.push("/Login");
     }
   };
 
@@ -113,35 +107,34 @@ const Carrito = (props) => {
 
         <div className="carrito-lista">
           {carritoDePrueba.map((juego) => (
-            <div key={juego.id} className="card-juego">
+            <div key={juego.id} className="carrito-card-juego">
 
-              <div className="card-img-wrapper">
+              <div className="carrito-card-img-wrapper">
                 <img src={juego.img} alt={juego.nombre} />
               </div>
 
-              <div className="card-contenido">
-                <div className="card-header">
+              <div className="carrito-card-contenido">
+                <div className="carrito-card-header">
                   <h3>{juego.nombre}</h3>
-                  <button className="btn-eliminar" title="Eliminar del carrito">
+                  <button className="carrito-btn-eliminar" title="Eliminar del carrito">
                     <span role="img" aria-label="eliminar">🗑️</span>
                   </button>
                 </div>
 
-                <p className="descripcion">{juego.descripcion}</p>
+                <p className="carrito-descripcion">{juego.descripcion}</p>
 
-                <div className="card-footer">
-                  <div className="plataformas">
-                    {/* Renderizamos el Logo segun el nombre */}
+                <div className="carrito-card-footer">
+                  <div className="carrito-plataformas">
                     {juego.plataformas.map((p, i) => (
-                      <span key={i} className="icono-plat" title={p}>
+                      <span key={i} className="carrito-icono-plat" title={p}>
                         {LOGOS[p] || p}
                       </span>
                     ))}
                   </div>
 
-                  <div className="precios-wrapper">
-                    <span className="precio-original">${juego.precioOriginal.toLocaleString()}</span>
-                    <span className="precio-final">${juego.precio.toLocaleString()}</span>
+                  <div className="carrito-precios-wrapper">
+                    <span className="carrito-precio-original">${juego.precioOriginal.toLocaleString()}</span>
+                    <span className="carrito-precio-final">${juego.precio.toLocaleString()}</span>
                   </div>
                 </div>
               </div>
@@ -150,22 +143,22 @@ const Carrito = (props) => {
         </div>
 
         <div className="carrito-resumen">
-          <div className="resumen-box">
-            <div className="resumen-fila">
+          <div className="carrito-resumen-box">
+            <div className="carrito-resumen-fila">
               <span>Cantidad de juegos:</span>
-              <span className="highlight-text">{cantidad}</span>
+              <span className="carrito-highlight-text">{cantidad}</span>
             </div>
 
-            <div className="resumen-fila total-fila">
+            <div className="carrito-resumen-fila carrito-total-fila">
               <span>Total de la compra:</span>
             </div>
 
-            <div className="total-precio-box">
+            <div className="carrito-total-precio-box">
               ${total.toLocaleString()}
             </div>
           </div>
 
-          <button className="btn-finalizar" onClick={handleFinalizarCompra}>
+          <button className="carrito-btn-finalizar" onClick={handleFinalizarCompra}>
             Finalizar Compra
           </button>
         </div>

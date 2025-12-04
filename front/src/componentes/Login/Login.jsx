@@ -57,17 +57,64 @@ class Login extends Component {
     }
 
     renderRegister() {
+        // Rutas de tus imágenes en public/images
+        const avatares = [
+            "/img/silla-default.jpg",
+            "/img/auto-default.jpg",
+            "/img/pelota-default.jpg"
+        ];
+
+        // La foto actualmente seleccionada (viene del estado de App.js)
+        const fotoSeleccionada = this.props.informacionUsuario.foto;
+
         return (
             <>
                 <h3>Crear cuenta</h3>
-                <form className="formulario-cuenta">
-                    <input type="text" placeholder="Usuario" className="login-input" />
-                    <input type="password" placeholder="Contraseña" className="login-input" />
+                {/* Agregamos onSubmit aquí para que funcione el botón de Crear */}
+                <form className="formulario-cuenta" onSubmit={(e) => this.props.handleSubmitUsuario(e, this.props.history)}>
+
+                    <input
+                        type="text"
+                        name="nombreUsuario"
+                        placeholder="Usuario"
+                        className="login-input"
+                        onChange={this.props.handleChangeUsuario}
+                        required
+                    />
+                    <input
+                        type="email" // Cambiado a email para validación
+                        name="email"
+                        placeholder="Email"
+                        className="login-input"
+                        onChange={this.props.handleChangeUsuario}
+                        required
+                    />
+                    <input
+                        type="password"
+                        name="contrasena"
+                        placeholder="Contraseña"
+                        className="login-input"
+                        onChange={this.props.handleChangeUsuario}
+                        required
+                    />
+
                     <label className="etiqueta-foto">
-                        Elige una foto
+                        Elige tu avatar
                     </label>
-                    <div className="contenedor-foto">
+
+                    {/* SECCIÓN DE AVATARES */}
+                    <div className="contenedor-seleccion-avatares">
+                        {avatares.map((img, index) => (
+                            <img
+                                key={index}
+                                src={img}
+                                alt={`Avatar ${index + 1}`}
+                                className={`avatar-opcion ${fotoSeleccionada === img ? 'seleccionado' : ''}`}
+                                onClick={() => this.props.handleSeleccionFoto(img)}
+                            />
+                        ))}
                     </div>
+
                     <button type="submit" className="crear-btn">Crear</button>
                     <button type="button" className="alternar-vista-btn" onClick={this.cambiarVista}>Iniciar Sesión</button>
                 </form>

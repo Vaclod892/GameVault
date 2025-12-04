@@ -162,3 +162,33 @@
   order: 2;
   text-align: center;
 }
+
+
+.contenedor-seleccion-avatares {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.avatar-opcion {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent; /* Borde invisible por defecto */
+    transition: transform 0.2s, border-color 0.2s;
+    object-fit: cover;
+    background-color: #2f3744; /* Fondo por si la imagen es transparente */
+}
+
+.avatar-opcion:hover {
+    transform: scale(1.1);
+}
+
+/* Clase que se aplica cuando la foto coincide con el estado */
+.avatar-opcion.seleccionado {
+    border-color: #4caf50; /* Color verde de selección */
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+    transform: scale(1.1);
+}

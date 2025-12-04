@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 
 //M.M
 //
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 // M.M
 // Importamos la biblioteca Axios
@@ -46,8 +46,9 @@ class App extends Component {
 
       informacionUsuarios: {
         nombreUsuario: "",
-        contraseña: "",
-        emaill: ""
+        contrasena: "",
+        email: "",
+        foto: "/img/silla-default.jpg"
       },
       fotoDePerfil: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQayIn4Sk056effKpGGnLYBdsIrLGI7Q5s9MA&s",
       usuarioSeleccionado: null,
@@ -345,18 +346,32 @@ class App extends Component {
   }
 
 
-  handleSubmitUsuario(e) {
+  handleSubmitUsuario(e, history) {
     e.preventDefault();
     const usuario = this.state.informacionUsuarios;
     const URLusuario = "http://localhost:3030/api/usuarios";
+
     axios.post(URLusuario, usuario)
       .then((res) => {
-        console.log("Estatus:", res.status);
-        console.log("Datos:", res.data);
-      }
-      )
+        if (res.status === 200) {
+          alert("¡Usuario creado correctamente! Bienvenido a GameVault.");
+
+          // PASO CLAVE: Actualizamos el estado para que la App sepa que estamos logueados
+          // Nota: Asegúrate de que tu backend devuelva el usuario creado en res.data
+          // Si no, usa la variable local 'usuario'
+          this.setState({
+            usuarioSeleccionado: res.data.usuario || usuario // Preferiblemente lo que devuelve el back
+          });
+
+          // Ahora sí redirigimos, y como hay usuario, el Home se mostrará bien
+          if (history) {
+            history.push("/");
+          }
+        }
+      })
       .catch((err) => {
         console.log("Error:", err);
+        alert("Hubo un error al crear el usuario. Intenta nuevamente.");
       })
   }
 
@@ -426,7 +441,10 @@ class App extends Component {
           // Guardamos el usuario en el estado global
           this.setState({ usuarioSeleccionado: res.data.usuario });
           // Redireccionamos al Home (usando history de react-router)
-          history.push("/");
+          // history.push("/");}
+          window.location.href="/"
+
+
         }
       })
       .catch((err) => {
@@ -435,91 +453,109 @@ class App extends Component {
       });
   }
 
-
+  handleSeleccionFoto = (urlFoto) => {
+    this.setState(prevState => ({
+      informacionUsuarios: {
+        ...prevState.informacionUsuarios,
+        foto: urlFoto
+      }
+    }));
+  }
 
 
   // M.M
   // Uso del metodo render para mostrar los datos y idear la interfaz para poder manipular esos datos 
   render() {
-  return (
-    <Router>
-      <Switch>
-        {/* Ruta Home */}
-        <Route exact path="/" component={Home} />
+    return (
+      <Router>
+        <Switch>
+          {/* Ruta Home */}
+          <Route exact path="/" render={(props) => (
+            <Home
+              {...props}
+              dataJuegos={this.state.dataJuegos} // Pasamos la lista de juegos
+              usuario={this.state.usuarioSeleccionado} // Pasamos el usuario (si lo necesitas en el header del home)
+            // Agrega aquí cualquier otra prop que tu componente Home necesite
+            />
+          )} />
 
-        {/* Ruta VistaJuego con props */}
-        <Route path="/VistaDeJuego/:id" render={(props) => (
-          <VistaJuego
-            {...props}
-            dataJuego={this.state.dataJuegos}
+          {/* Ruta VistaJuego con props */}
+          <Route path="/VistaDeJuego/:id" render={(props) => (
+            <VistaJuego
+              {...props}
+              dataJuego={this.state.dataJuegos}
+              dataComentario={this.state.dataComentarios}
+              comentarioActual={this.state.hazUnComentario}
+              handleChangeComentario={this.handleChangeComentario}
+              handleSubmitComentario={this.handleSubmitComentario}
+            />
+          )} />
+
+          {/* Carrito */}
+          <Route path="/Carrito" render={(props) => (
+            <Carrito
+              {...props}
+              usuario={this.state.usuarioSeleccionado}
+            />
+          )} />
+
+          {/* Ruta LOGIN con una G */}
+          <Route path="/Login" render={(props) => (
+
+            this.state.usuarioSeleccionado ? (
+
+              <Redirect to="/" /> // Importa 'Redirect' de 'react-router-dom'
+            ) : (
+
+              <Login
+                {...props}
+                informacionUsuario={this.state.informacionUsuarios}
+                handleChangeUsuario={this.handleChangeUsuario}
+                handleSubmitUsuario={this.handleSubmitUsuario}
+                handleSeleccionFoto={this.handleSeleccionFoto}
+                loginForm={this.state.loginForm}
+                handleChangeLogin={this.handleChangeLogin}
+                handleLogin={this.handleLogin}
+              />
+            )
+          )} />
+
+          {/* Ruta Admin (La más larga) */}
+          <Route path="/VistaAdmin" render={(props) => <VistadeAdministrador {...props}
+            valorGenero={this.state.crearGenero}
+            handleChangeGenero={this.handleChangeGenero}
+            handleSubmitGenero={this.handleSubmitGenero}
+            valorJuego={this.state.crearJuego}
+            handleChangeJuego={this.handleChangeJuego}
+            handleSubmitJuego={this.handleSubmitJuego}
+            dataUsuario={this.state.dataUsuarios}
+            imagenUsuario={this.state.fotoDePerfil}
+            dataGenero={this.state.dataGeneros}
+            dataJuegos={this.state.dataJuegos}
             dataComentario={this.state.dataComentarios}
-            comentarioActual={this.state.hazUnComentario}
-            handleChangeComentario={this.handleChangeComentario}
-            handleSubmitComentario={this.handleSubmitComentario}
-          />
-        )} />
+            dataCompra={this.state.dataCompras}
+            usuarioSeleccionado={this.state.usuarioSeleccionado}
+            seleccionarUsuario={this.seleccionarUsuario}
+            generoSeleccionado={this.state.generoSeleccionado}
+            seleccionarGenero={this.seleccionarGenero}
+            juegoSeleccionado={this.state.juegoSeleccionado}
+            seleccionarJuego={this.seleccionarJuego}
+            comentarioSeleccionado={this.state.comentarioSeleccionado}
+            seleccionarComentario={this.seleccionarComentario}
+            formularioGenero={this.handleChangeGenero}
+            crearGenero={this.handleSubmitGenero}
+            updateDtaGenero={this.updateDtaGenero}
+            mostrarCreacionJuego={this.state.mostrarCreacionJuego}
+            visualizarFormuarioJuego={this.visualizarFormuarioJuego}
+            mostrarCreacionGenero={this.state.mostrarCreacionGenero}
+            visualizarFormuarioGenero={this.visualizarFormuarioGenero} />} />
 
-        {/* Carrito */}
-        <Route path="/Carrito" render={(props) => (
-          <Carrito
-            {...props}
-            usuario={this.state.usuarioSeleccionado}
-          />
-        )} />
+          {/* Si tenías una ruta de Resultados de Búsqueda antigua, iría aquí */}
 
-        {/* Ruta LOGIN con una G */}
-        <Route path="/Login" render={(props) => (
-          <Login
-            {...props} // Importante: pasa history, match, location
-
-            // Props para REGISTRO (que ya tenías)
-            informacionUsuario={this.state.informacionUsuarios}
-            handleChangeUsuario={this.handleChangeUsuario}
-            handleSubmitUsuario={this.handleSubmitUsuario}
-
-            // Props para LOGIN (Nuevas)
-            loginForm={this.state.loginForm}
-            handleChangeLogin={this.handleChangeLogin}
-            handleLogin={this.handleLogin}
-          />
-        )} />
-
-        {/* Ruta Admin (La más larga) */}
-  <Route path="/VistaAdmin" render={(props) => <VistadeAdministrador {...props}
-    valorGenero={this.state.crearGenero}
-    handleChangeGenero={this.handleChangeGenero}
-    handleSubmitGenero={this.handleSubmitGenero}
-    valorJuego={this.state.crearJuego}
-    handleChangeJuego={this.handleChangeJuego}
-    handleSubmitJuego={this.handleSubmitJuego}
-    dataUsuario={this.state.dataUsuarios}
-    imagenUsuario={this.state.fotoDePerfil}
-    dataGenero={this.state.dataGeneros}
-    dataJuegos={this.state.dataJuegos}
-    dataComentario={this.state.dataComentarios}
-    dataCompra={this.state.dataCompras}
-    usuarioSeleccionado={this.state.usuarioSeleccionado}
-    seleccionarUsuario={this.seleccionarUsuario}
-    generoSeleccionado={this.state.generoSeleccionado}
-    seleccionarGenero={this.seleccionarGenero}
-    juegoSeleccionado={this.state.juegoSeleccionado}
-    seleccionarJuego={this.seleccionarJuego}
-    comentarioSeleccionado={this.state.comentarioSeleccionado}
-    seleccionarComentario={this.seleccionarComentario}
-    formularioGenero={this.handleChangeGenero}
-    crearGenero={this.handleSubmitGenero}
-    updateDtaGenero={this.updateDtaGenero}
-    mostrarCreacionJuego={this.state.mostrarCreacionJuego}
-    visualizarFormuarioJuego={this.visualizarFormuarioJuego}
-    mostrarCreacionGenero={this.state.mostrarCreacionGenero}
-    visualizarFormuarioGenero={this.visualizarFormuarioGenero} />} />
-
-        {/* Si tenías una ruta de Resultados de Búsqueda antigua, iría aquí */}
-
-      </Switch>
-    </Router>
-  );
-}
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;
