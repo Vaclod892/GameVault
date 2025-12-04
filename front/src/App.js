@@ -18,7 +18,7 @@ import ResultadodeBusqueda from "./componentes/ResultadoDeBusqueda/ResultadoDeBu
 import VistaJuego from "./componentes/Vistajuego/VistaJuego"
 import Carrito from "./componentes/Carrito/Carrito"
 import VistadeAdministrador from './componentes/VistadeAdministrador/VistadeAdministrador';
-import Loggin from "./componentes/Loggin/Loggin"
+import Login from "./componentes/Login/Login"
 
 // function App() {
   //return (
@@ -398,7 +398,7 @@ class App extends Component {
                   
                   <Route path="/Carrito" component={Carrito} /> 
                   
-                  <Route path="/Loggin" render={(props) => <Loggin {...props} 
+                  <Route path="/Login" render={(props) => <Login {...props} 
                   informacionUsuario={this.state.informacionUsuarios}  
                   handleChangeUsuario={this.handleChangeUsuario}
                   handleSubmitUsuario={this.handleSubmitUsuario} /> } />
