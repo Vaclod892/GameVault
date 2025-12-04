@@ -21,11 +21,35 @@ class Login extends Component {
         return (
             <>
                 <h3>Iniciar sesion</h3>
-                <form className="formulario-sesion">
-                    <input type="text" placeholder="Usuario" className="login-input" />
-                    <input type="password" placeholder="Contraseña" className="login-input" />
+                {/* 1. Agregamos onSubmit pasando el evento y history */}
+                <form className="formulario-sesion" onSubmit={(e) => this.props.handleLogin(e, this.props.history)}>
+
+                    {/* 2. Conectamos el input de Email */}
+                    <input
+                        type="text"
+                        name="email" // Importante: el name debe coincidir con el estado en App.js
+                        placeholder="Email" // Cambiado de Usuario a Email para coincidir con la DB
+                        className="login-input"
+                        value={this.props.loginForm.email}
+                        onChange={this.props.handleChangeLogin}
+                        required
+                    />
+
+                    {/* 3. Conectamos el input de Contraseña */}
+                    <input
+                        type="password"
+                        name="contrasena"
+                        placeholder="Contraseña"
+                        className="login-input"
+                        value={this.props.loginForm.contrasena}
+                        onChange={this.props.handleChangeLogin}
+                        required
+                    />
+
                     <p className="olvide-contrasena">Perdí mi contraseña</p>
                     <button type="button" className="alternar-vista-btn" onClick={this.cambiarVista}>Registrarse</button>
+
+                    {/* 4. El botón debe ser type="submit" */}
                     <button type="submit" className="iniciar-btn">Iniciar Sesión</button>
                 </form>
             </>

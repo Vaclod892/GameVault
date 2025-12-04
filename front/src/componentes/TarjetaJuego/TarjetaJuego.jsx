@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-// import { FaShoppingCart, FaSteam, FaXbox, FaPlaystation } from 'react-icons/fa'; // V.D. - Iconos de React
+import { FaShoppingCart, FaSteam, FaXbox, FaPlaystation } from 'react-icons/fa'; // V.D. - Iconos de React
 
 import './TarjetaJuego.css'
+
 
 class TarjetaJuego extends Component {
     constructor(props) {
