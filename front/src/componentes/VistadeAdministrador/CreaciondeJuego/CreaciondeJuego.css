@@ -79,3 +79,49 @@
 .CreacionGenero-formulario input[type="submit"]:hover {
     background-color: #27ae60; 
 }
+
+
+.contenedor-genero-formulario-juego {
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 10px;
+    max-height: 90px;      
+    overflow-y: auto;       
+}
+
+.contenedor-genero-formulario-juego::-webkit-scrollbar {
+    display: none;
+}
+
+.contenedor-genero-formulario-juego {
+    scrollbar-width: none; 
+}
+
+.contenedor-genero-formulario-juego {
+    -ms-overflow-style: none;
+}
+
+.contenedor-genero {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.genero-tarjeta-seleccion {
+    width: 100%;
+    padding: 10px 0;
+
+    background-color: #2e2d55; 
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.genero-tarjeta-seleccion:hover {
+    background-color: #3d3b6b;
+}

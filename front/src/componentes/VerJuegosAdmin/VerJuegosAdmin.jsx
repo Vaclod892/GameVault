@@ -19,18 +19,13 @@ class VerJuegosAdmin extends Component {
         return ( <>
                 <div className="lista-juegos">
                 {juegos.map(juego => (
-                    <div className="juego-tarjeta" key={juego.ID_juego}>
+                    <div className="juego-tarjeta" key={juego.ID_Juego}>
                         <div className="juego-info">
-                            <p className="juego-titulo">{juego.titulo}</p>
-                            <span className="juego-precio">Precio: ${juego.precio}</span>
+                            <p className="juego-titulo">{juego.Titulo}</p>
+                            <span className="juego-precio">Precio: ${juego.Precio}</span>
                         </div>
                         <div className="juego-botones">
-                            <button 
-                                className="boton-editar" 
-                                onClick={() => this.props.seleccionarJuego(juego)}>
-                                Editar
-                            </button>
-                            <button className="boton-eliminar">Eliminar</button>
+                            <button className="boton-editar" onClick={() => this.props.seleccionarJuego(juego)}> Editar </button>
                         </div>
                     </div>
                 ))}

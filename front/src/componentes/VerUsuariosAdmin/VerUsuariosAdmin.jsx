@@ -14,7 +14,7 @@ class VerUsuariosAdmin extends Component {
             <>
                 <div className="contenedor-principal">
                     {usuarios.map(usuario => (
-                        <div className="tarjeta-usuario" key={usuario.id} onClick={() => this.props.seleccionarUsuario(usuario)}>
+                        <div className="tarjeta-usuario" key={usuario.ID_usuario} onClick={() => this.props.seleccionarUsuario(usuario)}>
                             <div className="informacion">
                                 <img
                                     src={fPerfil} alt="Foto de usuario"
