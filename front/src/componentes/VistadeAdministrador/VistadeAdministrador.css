@@ -1,16 +1,16 @@
 .contenedor-principal-admin { 
     padding: 20px;
-    background-color: #1A1A2E; /* Fondo oscuro, como en la imagen deseada */
+    background-color: #1A1A2E;
     min-height: 100vh;
     font-family: 'Inter', sans-serif;
-    color: #E4E6EB; /* Texto claro */
+    color: #E4E6EB; 
 }
 
 .admin-header {
     text-align: center;
     margin-bottom: 30px;
-    color: #E4E6EB; /* Texto claro */
-    border-bottom: 2px solid #2A2A4A; /* Borde oscuro */
+    color: #E4E6EB; 
+    border-bottom: 2px solid #2A2A4A;
     padding-bottom: 15px;
 }
 

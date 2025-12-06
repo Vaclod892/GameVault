@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './EdiciondeGenero.css';
 
 class EdiciondeGenero extends Component {
     constructor(props) {
@@ -6,16 +7,14 @@ class EdiciondeGenero extends Component {
     }
 
     render() { 
-
-       if(!this.props.genero) return null;
-
         return ( <>
         <div className="contenedor-principal">
-            <h3>Editar Genero</h3>
-            <form className="EdicionGenero-formulario" onSubmit={this.props.updateDtaGenero}> 
-                <input type="text" className="EdicionGenero-input" value={this.props.genero} onChange={this.props.handleChangeGenero} />
-                <input type="submit" value="Editar" />
-            </form>
+            <h3 className="titulo-creacion-genero">Editar Nombre</h3>
+                <button type="button" className="boton-bloquear-vista-genero" onClick={this.props.visualizarFormularioGenero}> x </button>
+                    <form className="CreacionGenero-formulario" onSubmit={this.props.updateDtaGenero}> 
+                        <input type="text" className="CreacionGenero-input" value={this.props.valorGenero.nombre} onChange={this.props.handleChangeGenero} />
+                        <input type="submit" value="Editar" />
+                    </form>
         </div>
         </> );
     }

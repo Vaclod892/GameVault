@@ -82,16 +82,25 @@ class App extends Component {
 
       mostrarCreacionGenero: false,
       mostrarCreacionJuego: false,
-    };
+      mostrarEdicionGenero: false,
+      mostrarEdicionJuego: false,
+      mostrarDatosUsuario: false
+
+    }
+
     this.handleChangeLogin = this.handleChangeLogin.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handleChangeGenero = this.handleChangeGenero.bind(this);
+    this.handleSubmitGenero = this.handleSubmitGenero.bind(this);
     this.updateDtaGenero = this.updateDtaGenero.bind(this);
     this.handleSubmitGenero = this.handleSubmitGenero.bind(this);
     this.handleChangeJuego = this.handleChangeJuego.bind(this);
+    this.handleSeleccionGeneroJuego = this.handleSeleccionGeneroJuego.bind(this);
     this.handleSubmitJuego = this.handleSubmitJuego.bind(this);
+    this.updateDtaJuego = this.updateDtaJuego.bind(this);
     this.handleChangeComentario = this.handleChangeComentario.bind(this);
     this.handleSubmitComentario = this.handleSubmitComentario.bind(this);
+    this.updateDtaComentario = this.updateDtaComentario.bind(this);
     this.handleChangeUsuario = this.handleChangeUsuario.bind(this);
     this.handleSubmitUsuario = this.handleSubmitUsuario.bind(this);
     this.seleccionarUsuario = this.seleccionarUsuario.bind(this);
@@ -106,6 +115,14 @@ class App extends Component {
     this.agregarAlCarrito = this.agregarAlCarrito.bind(this);
     this.eliminarDelCarrito = this.eliminarDelCarrito.bind(this);
     this.vaciarCarrito = this.vaciarCarrito.bind(this);
+    this.seleccionarComentario = this.seleccionarComentario.bind(this)
+    this.visualizarFormularioGenero = this.visualizarFormularioGenero.bind(this);
+    this.visualizarFormularioJuego = this.visualizarFormularioJuego.bind(this);
+    this.visualizarEditorGenero = this.visualizarEditorGenero.bind(this);
+    this.visualizarEditorJuego = this.visualizarEditorJuego.bind(this);
+    this.visualizarDatosUsuario = this.visualizarDatosUsuario.bind(this)
+
+
   }
 
   // M.M
@@ -245,6 +262,22 @@ class App extends Component {
     }));
   }
 
+
+  handleSeleccionGeneroJuego(nombreGenero) {
+    this.setState(prevState => {
+      const genSeleccionado = prevState.crearJuego.genero.includes(nombreGenero);
+      return {
+        crearJuego: {
+          ...prevState.crearJuego,
+          genero: genSeleccionado
+            ? prevState.crearJuego.genero.filter(genero => genero !== nombreGenero)
+            : [...prevState.crearJuego.genero, nombreGenero]
+        }
+      };
+    });
+  }
+
+
   handleSubmitJuego(e, comentario) {
     e.preventDefault();
     const juego = this.state.crearJuego;
@@ -261,27 +294,30 @@ class App extends Component {
       });
   }
 
+
   updateDtaJuego(e) {
     e.preventDefault();
-
-    const id = this.state.generoSeleccionado.id;
-    const data = { nombre: this.state.crearGenero.nombre };
-
-    axios
-      .put(`http://localhost:3030/api/generos/${id}`, data)
-      .then((response) => {
-        console.log("Género actualizado:", response.data);
-        this.setState((prev) => ({
-          dataGeneros: prev.dataGeneros.map((genero) =>
-            genero.id === id ? { ...genero, nombre: data.nombre } : genero
+    const id = this.state.juegoSeleccionado.ID_Juego;
+    const data = { Titulo: this.state.crearJuego.Titulo, Descripcion: this.state.crearJuego.Descripcion, Precio: this.state.crearJuego.Precio };
+    axios.put(`http://localhost:3030/api/juegos/actualizarJuego/${id}`, data)
+      .then(response => {
+        console.log("Juego actualizado:", response.data)
+        this.setState(prevState => ({
+          dataJuegos: prevState.dataJuegos.map(juego =>
+            juego.ID_Juego === id ? { ...juego, Titulo: data.Titulo, Descripcion: data.Descripcion, Precio: data.Precio } : juego
           ),
-          generoSeleccionado: null,
-          crearGenero: { nombre: "" },
-        }));
+          juegoSeleccionado: null,
+          crearJuego: {
+            Titulo: "",
+            Descripcion: "",
+            Precio: "",
+            genero: []
+          }
+        }))
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({ errorMessage: error.message });
-        console.error("There was an error!", error);
+        console.error('There was an error!', error);
       });
   }
 
@@ -308,43 +344,43 @@ class App extends Component {
       ID_juego: Number(idJuego),
       ID_usuario: 1,
     };
-
-    console.log("Comentario que se envía:", comentario);
-    console.log("Valor recomienda:", this.state.hazUnComentario.recomienda);
-
     const URLcomentario = "http://localhost:3030/api/comentarios";
-    axios
-      .post(URLcomentario, comentario)
+    axios.post(URLcomentario, comentario)
       .then((res) => {
         console.log("Estatus:", res.status);
         console.log("Datos:", res.data);
-      })
+      }
+      )
       .catch((err) => {
         console.log("Error:", err);
-      });
+      })
   }
+
+
 
   updateDtaComentario(e) {
     e.preventDefault();
 
-    const id = this.state.generoSeleccionado.id;
-    const data = { nombre: this.state.crearGenero.nombre };
+    const id = this.state.comentarioSeleccionado.ID_comentario;
+    const data = { recomienda: this.state.hazUnComentario.recomienda, resena: this.state.hazUnComentario.resena };
 
-    axios
-      .put(`http://localhost:3030/api/generos/${id}`, data)
-      .then((response) => {
-        console.log("Género actualizado:", response.data);
-        this.setState((prev) => ({
-          dataGeneros: prev.dataGeneros.map((genero) =>
-            genero.id === id ? { ...genero, nombre: data.nombre } : genero
+    axios.put(`http://localhost:3030/api/comentarios/editarComentario/${id}`, data)
+      .then(response => {
+        console.log("Género actualizado:", response.data)
+        this.setState(prev => ({
+          dataComentarios: prev.dataComentarios.map(comentario =>
+            comentario.ID_comentario === id ? { ...comentario, recomienda: data.recomienda, resena: data.resena } : comentario
           ),
-          generoSeleccionado: null,
-          crearGenero: { nombre: "" },
-        }));
+          comentarioSeleccionado: null,
+          hazUnComentario: {
+            recomienda: "",
+            resena: ""
+          }
+        }))
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({ errorMessage: error.message });
-        console.error("There was an error!", error);
+        console.error('There was an error!', error);
       });
   }
 
@@ -395,40 +431,91 @@ class App extends Component {
     this.setState({ usuarioSeleccionado: usuario });
   }
 
+
   seleccionarGenero(genero) {
     this.setState({
       generoSeleccionado: genero,
-      crearGenero: { nombre: genero.nombre },
+
+      juegoSeleccionado: null,
+      comentarioSeleccionado: null,
+      usuarioSeleccionado: null,
+
+      mostrarEdicionJuego: false,
+      mostrarCreacionGenero: false,
+      mostrarCreacionJuego: false,
+      crearGenero: { nombre: genero.nombre }
     });
   }
 
-  seleccionarJuego(genero) {
+  seleccionarJuego(juego) {
     this.setState({
-      generoSeleccionado: genero,
-      crearGenero: { nombre: genero.nombre },
+      juegoSeleccionado: juego,
+
+      generoSeleccionado: null,
+      comentarioSeleccionado: null,
+      usuarioSeleccionado: null,
+
+      mostrarEdicionGenero: false,
+      mostrarCreacionGenero: false,
+      mostrarCreacionJuego: false,
+
+      crearJuego: {
+        ID_Juego: juego.ID_Juego,
+        Titulo: juego.Titulo,
+        Descripcion: juego.Descripcion,
+        Precio: juego.Precio
+      }
     });
   }
 
   seleccionarComentario(comentario) {
-    this.setState({ comentarioSeleccionado: comentario });
+    this.setState({
+      comentarioSeleccionado: comentario,
+      hazUnComentario: {
+        recomienda: comentario.recomienda,
+        resena: comentario.resena
+      }
+    });
   }
+
 
   //M.M
   //
 
-  visualizarFormuarioGenero() {
-    this.setState((prevState) => ({
+  visualizarFormularioGenero() {
+    this.setState(prevState => ({
       mostrarCreacionGenero: !prevState.mostrarCreacionGenero,
-      mostrarCreacionJuego: false,
-    }));
+      mostrarCreacionJuego: false
+    }))
   }
 
-  visualizarFormuarioJuego() {
-    this.setState((prevState) => ({
+  visualizarFormularioJuego() {
+    this.setState(prevState => ({
       mostrarCreacionJuego: !prevState.mostrarCreacionJuego,
-      mostrarCreacionGenero: false,
-    }));
+      mostrarCreacionGenero: false
+    }))
   }
+
+  visualizarEditorGenero() {
+    this.setState(prevState => ({
+      mostrarEdicionGenero: !prevState.mostrarEdicionGenero,
+      mostrarEdicionJuego: false
+    }))
+  }
+
+  visualizarEditorJuego() {
+    this.setState(prevState => ({
+      mostrarEdicionJuego: !prevState.mostrarEdicionJuego,
+      mostrarCreacionGenero: false
+    }))
+  }
+
+  visualizarDatosUsuario() {
+    this.setState(prevState => ({
+      mostrarDatosUsuario: !prevState.mostrarDatosUsuario,
+    }))
+  }
+
 
   // Maneja los cambios en los inputs del Login
   handleChangeLogin(e) {
@@ -679,41 +766,43 @@ class App extends Component {
           />
 
           {/* Ruta Admin (La más larga) */}
-          <Route
-            path="/VistaAdmin"
-            render={(props) => (
-              <VistadeAdministrador
-                {...props}
-                valorGenero={this.state.crearGenero}
-                handleChangeGenero={this.handleChangeGenero}
-                handleSubmitGenero={this.handleSubmitGenero}
-                valorJuego={this.state.crearJuego}
-                handleChangeJuego={this.handleChangeJuego}
-                handleSubmitJuego={this.handleSubmitJuego}
-                dataUsuario={this.state.dataUsuarios}
-                imagenUsuario={this.state.fotoDePerfil}
-                dataGenero={this.state.dataGeneros}
-                dataJuegos={this.state.dataJuegos}
-                dataComentario={this.state.dataComentarios}
-                dataCompra={this.state.dataCompras}
-                usuarioSeleccionado={this.state.usuarioSeleccionado}
-                seleccionarUsuario={this.seleccionarUsuario}
-                generoSeleccionado={this.state.generoSeleccionado}
-                seleccionarGenero={this.seleccionarGenero}
-                juegoSeleccionado={this.state.juegoSeleccionado}
-                seleccionarJuego={this.seleccionarJuego}
-                comentarioSeleccionado={this.state.comentarioSeleccionado}
-                seleccionarComentario={this.seleccionarComentario}
-                formularioGenero={this.handleChangeGenero}
-                crearGenero={this.handleSubmitGenero}
-                updateDtaGenero={this.updateDtaGenero}
-                mostrarCreacionJuego={this.state.mostrarCreacionJuego}
-                visualizarFormuarioJuego={this.visualizarFormuarioJuego}
-                mostrarCreacionGenero={this.state.mostrarCreacionGenero}
-                visualizarFormuarioGenero={this.visualizarFormuarioGenero}
-              />
-            )}
-          />
+          <Route path="/VistaAdmin" render={(props) => <VistadeAdministrador {...props}
+            valorGenero={this.state.crearGenero}
+            handleChangeGenero={this.handleChangeGenero}
+            handleSubmitGenero={this.handleSubmitGenero}
+            updateDtaGenero={this.updateDtaGenero}
+            valorJuego={this.state.crearJuego}
+            handleChangeJuego={this.handleChangeJuego}
+            handleSubmitJuego={this.handleSubmitJuego}
+            updateDtaJuego={this.updateDtaJuego}
+            valorComentario={this.state.hazUnComentario}
+            handleChangeComentario={this.handleChangeComentario}
+            handleSubmitComentario={this.handleSubmitComentario}
+            updateDtaComentario={this.updateDtaComentario}
+            handleSeleccionGeneroJuego={this.handleSeleccionGeneroJuego}
+            dataUsuario={this.state.dataUsuarios}
+            imagenUsuario={this.state.fotoDePerfil}
+            dataGenero={this.state.dataGeneros}
+            dataJuegos={this.state.dataJuegos}
+            dataComentario={this.state.dataComentarios}
+            dataCompra={this.state.dataCompras}
+            usuarioSeleccionado={this.state.usuarioSeleccionado}
+            seleccionarUsuario={this.seleccionarUsuario}
+            generoSeleccionado={this.state.generoSeleccionado}
+            seleccionarGenero={this.seleccionarGenero}
+            juegoSeleccionado={this.state.juegoSeleccionado}
+            seleccionarJuego={this.seleccionarJuego}
+            comentarioSeleccionado={this.state.comentarioSeleccionado}
+            seleccionarComentario={this.seleccionarComentario}
+            mostrarCreacionJuego={this.state.mostrarCreacionJuego}
+            visualizarFormularioJuego={this.visualizarFormularioJuego}
+            mostrarCreacionGenero={this.state.mostrarCreacionGenero}
+            visualizarFormularioGenero={this.visualizarFormularioGenero}
+            mostrarEdicionGenero={this.state.mostrarEdicionGenero}
+            visualizarEditorGenero={this.visualizarEditorGenero}
+            mostrarEdicionJuego={this.state.mostrarEdicionJuego}
+            visualizarEditorJuego={this.visualizarEditorJuego}
+            visualizarDatosUsuario={this.visualizarDatosUsuario} />} />
 
           {/* Si tenías una ruta de Resultados de Búsqueda antigua, iría aquí */}
         </Switch>
