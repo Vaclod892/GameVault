@@ -1,20 +1,90 @@
 .resultadoDeBusqueda {
-    padding: 20px;
-    background-color: #2b3a4a; /* Fondo oscuro similar a tu imagen de referencia */
-    min-height: 100vh; /* Para que ocupe al menos toda la pantalla */
+    background-color: #272c38;
+    min-height: 100vh;
+    padding: 40px 20px;
     color: white;
+    display: flex;
+    justify-content: center;
+}
+
+/* Contenedor para limitar el ancho y que no se estire infinito */
+.contenedor-resultados-limitado {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.cabecera-resultados {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #3f4756;
+    padding-bottom: 15px;
 }
 
 .titulo-seccion {
-    margin-bottom: 20px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 10px;
+    margin: 0;
+    font-size: 2rem;
+    color: #f0f0f0;
+}
+
+/* Botón pequeño de volver (arriba) */
+.btn-volver {
+    text-decoration: none;
+    color: #99a8b8;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 1px solid #3f4756;
+    border-radius: 4px;
+    transition: all 0.3s;
+    background-color: #232934;
+}
+
+.btn-volver:hover {
+    color: white;
+    border-color: #e94560;
+    background-color: #e94560;
 }
 
 .lista-resultados {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Espacio vertical entre cada TarjetaJuego */
-    max-width: 1000px; /* Ancho máximo para que no se estiren demasiado */
-    margin: 0 auto; /* Centrar la lista */
+    gap: 20px;
+}
+
+/* Estilos para cuando no hay resultados */
+.sin-resultados {
+    background-color: #232934;
+    padding: 50px;
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 20px;
+    border: 1px dashed #3f4756;
+}
+
+.sin-resultados h3 {
+    margin-top: 10px;
+    font-size: 1.5rem;
+}
+
+.sin-resultados p {
+    color: #99a8b8;
+    margin-bottom: 30px;
+}
+
+/* Botón grande para volver (cuando no hay resultados) */
+.btn-volver-grande {
+    display: inline-block;
+    background-color: #e94560;
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.btn-volver-grande:hover {
+    background-color: #d13853;
+    transform: translateY(-2px);
 }

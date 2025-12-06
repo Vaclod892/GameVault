@@ -1,41 +1,68 @@
 import React, { Component } from 'react';
-
 import './Login.css';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLogin: true, // V.D. - Estado para controlar la vista (Login/Crear cuenta)
+            isLogin: true,
+            // Estado local para validación en tiempo real (opcional) o para el submit
+            nombreUsuario: '',
+            email: '',
+            contrasena: ''
         };
         this.cambiarVista = this.cambiarVista.bind(this);
+        this.handleLocalChange = this.handleLocalChange.bind(this);
+        this.handleRegisterSubmit = this.handleRegisterSubmit.bind(this);
     }
 
-    cambiarVista() { // V.D. - Función para alternar la vista
-        this.setState(prevState => ({
-            isLogin: !prevState.isLogin,
-        }));
+    cambiarVista() {
+        this.setState(prevState => ({ isLogin: !prevState.isLogin }));
+    }
+
+    // V.V: Función auxiliar para detectar Emojis
+    contieneEmojis(texto) {
+        // Regex que cubre la mayoría de rangos de emojis
+        const regex = /(\u00a9|\u00ae|[\u2000-\u3300]|\ud83c[\ud000-\udfff]|\ud83d[\ud000-\udfff]|\ud83e[\ud000-\udfff])/gi;
+        return regex.test(texto);
+    }
+
+    handleLocalChange(e) {
+        // Actualizamos estado local para poder validarlo al enviar
+        this.setState({ [e.target.name]: e.target.value });
+
+        // También llamamos a la función original del padre para que App.js tenga los datos
+        this.props.handleChangeUsuario(e);
+    }
+
+    handleRegisterSubmit(e) {
+        e.preventDefault();
+        const { nombreUsuario, email, contrasena } = this.state;
+
+        // V.V: Validación Anti-Emoji
+        if (this.contieneEmojis(nombreUsuario) || this.contieneEmojis(email) || this.contieneEmojis(contrasena)) {
+            alert("🚫 Por favor, no utilices emojis en los campos de texto.");
+            return; // Detenemos el envío
+        }
+
+        // Si pasa la validación, llamamos a la función real de registro
+        this.props.handleSubmitUsuario(e, this.props.history);
     }
 
     renderLogin() {
         return (
             <>
                 <h3>Iniciar sesion</h3>
-                {/* 1. Agregamos onSubmit pasando el evento y history */}
                 <form className="formulario-sesion" onSubmit={(e) => this.props.handleLogin(e, this.props.history)}>
-
-                    {/* 2. Conectamos el input de Email */}
                     <input
                         type="text"
-                        name="email" // Importante: el name debe coincidir con el estado en App.js
-                        placeholder="Email" // Cambiado de Usuario a Email para coincidir con la DB
+                        name="email"
+                        placeholder="Email"
                         className="login-input"
                         value={this.props.loginForm.email}
                         onChange={this.props.handleChangeLogin}
                         required
                     />
-
-                    {/* 3. Conectamos el input de Contraseña */}
                     <input
                         type="password"
                         name="contrasena"
@@ -45,11 +72,8 @@ class Login extends Component {
                         onChange={this.props.handleChangeLogin}
                         required
                     />
-
                     <p className="olvide-contrasena">Perdí mi contraseña</p>
                     <button type="button" className="alternar-vista-btn" onClick={this.cambiarVista}>Registrarse</button>
-
-                    {/* 4. El botón debe ser type="submit" */}
                     <button type="submit" className="iniciar-btn">Iniciar Sesión</button>
                 </form>
             </>
@@ -57,36 +81,34 @@ class Login extends Component {
     }
 
     renderRegister() {
-        // Rutas de tus imágenes en public/images
         const avatares = [
             "/img/silla-default.jpg",
             "/img/auto-default.jpg",
             "/img/pelota-default.jpg"
         ];
-
-        // La foto actualmente seleccionada (viene del estado de App.js)
         const fotoSeleccionada = this.props.informacionUsuario.foto;
 
         return (
             <>
                 <h3>Crear cuenta</h3>
-                {/* Agregamos onSubmit aquí para que funcione el botón de Crear */}
-                <form className="formulario-cuenta" onSubmit={(e) => this.props.handleSubmitUsuario(e, this.props.history)}>
+                {/* V.V: Cambiamos el onSubmit para usar nuestra validación local */}
+                <form className="formulario-cuenta" onSubmit={this.handleRegisterSubmit}>
 
                     <input
                         type="text"
                         name="nombreUsuario"
                         placeholder="Usuario"
                         className="login-input"
-                        onChange={this.props.handleChangeUsuario}
+                        /* V.V: Usamos handleLocalChange para capturar el valor aquí también */
+                        onChange={this.handleLocalChange}
                         required
                     />
                     <input
-                        type="email" // Cambiado a email para validación
+                        type="email"
                         name="email"
                         placeholder="Email"
                         className="login-input"
-                        onChange={this.props.handleChangeUsuario}
+                        onChange={this.handleLocalChange}
                         required
                     />
                     <input
@@ -94,15 +116,11 @@ class Login extends Component {
                         name="contrasena"
                         placeholder="Contraseña"
                         className="login-input"
-                        onChange={this.props.handleChangeUsuario}
+                        onChange={this.handleLocalChange}
                         required
                     />
 
-                    <label className="etiqueta-foto">
-                        Elige tu avatar
-                    </label>
-
-                    {/* SECCIÓN DE AVATARES */}
+                    <label className="etiqueta-foto">Elige tu avatar</label>
                     <div className="contenedor-seleccion-avatares">
                         {avatares.map((img, index) => (
                             <img
@@ -124,15 +142,14 @@ class Login extends Component {
 
     render() {
         const { isLogin } = this.state;
-
         return (
             <div className='Login'>
-                <div className="contenedor-login-simple"> {/* V.D. - Contenedor de la vista de Login */}
+                <div className="contenedor-login-simple">
                     <div className="imagen-fondo-completa">
                         <img src="/img/origins tema.jpg" alt="Imagen de fondo" />
                     </div>
                     <div className="seccion-lateral">
-                        {isLogin ? this.renderLogin() : this.renderRegister()} {/* V.D. - Alternancia de formularios */}
+                        {isLogin ? this.renderLogin() : this.renderRegister()}
                     </div>
                 </div>
             </div>

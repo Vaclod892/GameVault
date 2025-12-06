@@ -5,148 +5,103 @@ import { SiNintendoswitch, } from 'react-icons/si';
 
 // --- DICCIONARIO DE LOGOS (SVGs Inline) ---
 const LOGOS = {
-  PC: <FaSteam size="1.5em" />,           
-  PS5: <FaPlaystation size="1.5em" />,    
-  PS4: <FaPlaystation size="1.5em" color="black" />,    
-  XBOX: <FaXbox size="1.5em" />,          
-  SWITCH: <SiNintendoswitch size="1.5em" />,          
+  PC: <FaSteam size="1.5em" />,
+  PS5: <FaPlaystation size="1.5em" />,
+  PS4: <FaPlaystation size="1.5em" color="black" />,
+  XBOX: <FaXbox size="1.5em" />,
+  SWITCH: <SiNintendoswitch size="1.5em" />,
 };
 
 const Carrito = (props) => {
-
-  const carritoDePrueba = [
-    {
-      id: 1,
-      nombre: "The Last Of Us Part I",
-      descripcion: "En una civilización asolada, plagada de infectados y crueles supervivientes, Joel, nuestro exhausto protagonista, es contratado para sacar a escondidas a una chica de 14 años, Ellie.",
-      precioOriginal: 70000,
-      precio: 20000,
-      plataformas: ["PS5", "PC"],
-      img: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0720/eEILY9mcSv1kSmc06r156k5i.png"
-    },
-    {
-      id: 2,
-      nombre: "Resident Evil 7",
-      descripcion: "Resident Evil 7: Biohazard es un videojuego de survival horror en primera persona que marca un nuevo rumbo para la franquicia Resident Evil.",
-      precioOriginal: 30000,
-      precio: 10000,
-      plataformas: ["XBOX", "PC"],
-      img: "https://image.api.playstation.com/vulcan/img/cfn/11307uYG0CXzRuA9aryByTHYrQLFz-HVQ3VVl7YUeSY9tbGqX2l27VFt8qQIXiuEtqGSOGTlUb55vfYONSNgvsv.png"
-    },
-    {
-      id: 3,
-      nombre: "Resident Evil 2 Remake",
-      descripcion: "Resident Evil 2 (2019) es un videojuego de terror y supervivencia desarrollado y publicado por Capcom. Es un remake del juego original de 1998.",
-      precioOriginal: 20000,
-      precio: 5000,
-      plataformas: ["PS4", "PC"],
-      img: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0300/E2v3X6lj7fI8v8k5s5f1x2z5.png"
-    },
-    {
-      id: 4,
-      nombre: "Elden Ring",
-      descripcion: "Álzzate, Sinluz, y déjate guiar por la gracia para esgrimir el poder del Anillo de Elden y convertirte en el Señor del Círculo en las Tierras Intermedias.",
-      precioOriginal: 60000,
-      precio: 45000,
-      plataformas: ["PS5", "XBOX", "PC"],
-      img: "https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/phvVT0qZfcRms5qDAk0SI3CM.png"
-    },
-    {
-      id: 5,
-      nombre: "Cyberpunk 2077",
-      descripcion: "Cyberpunk 2077 es un RPG de acción y aventura de mundo abierto ambientado en Night City, una megalópolis obsesionada con el poder, el glamur y la modificación corporal.",
-      precioOriginal: 40000,
-      precio: 25000,
-      plataformas: ["PC", "PS5"],
-      img: "https://image.api.playstation.com/vulcan/ap/rnd/202311/1615/1c5b8b93540192e408d33ce79b3252a129676e053f539e55.png"
-    },
-    {
-      id: 6,
-      nombre: "EA SPORTS FC™ 24",
-      descripcion: "Siente cada partido con una experiencia más realista gracias a HyperMotionV, PlayStyles optimizados por Opta y el nuevo motor Frostbite.",
-      precioOriginal: 50000,
-      precio: 35000,
-      plataformas: ["PS5", "PS4", "XBOX"],
-      img: "https://image.api.playstation.com/vulcan/ap/rnd/202307/0611/496f8b1c4a044955365511516086f42774d75605d3368291.png"
-    },
-    {
-      id: 7,
-      nombre: "Minecraft: Java & Bedrock",
-      descripcion: "Crea, explora, sobrevive y repite. Minecraft: Java & Bedrock Edition para PC es un paquete que te da acceso a ambas versiones en un mismo lanzador.",
-      precioOriginal: 15000,
-      precio: 15000,
-      plataformas: ["PC", "SWITCH"],
-      img: "https://image.api.playstation.com/vulcan/ap/rnd/202408/1319/84045f2717011d61186716a4956799d146c26b528df52895.png"
-    },
-    {
-      id: 8,
-      nombre: "God of War Ragnarök",
-      descripcion: "Kratos y Atreus deben viajar a cada uno de los nueve reinos en busca de respuestas mientras las fuerzas asgardianas se preparan para la batalla profetizada.",
-      precioOriginal: 75000,
-      precio: 60000,
-      plataformas: ["PS5", "PS4"],
-      img: "https://image.api.playstation.com/vulcan/ap/rnd/202207/1210/4xJ8XB3bi888QTLZYdl7Oi0s.png"
-    }
-  ];
+  // V.V: Usamos el carrito real que viene de App.js
+  const carrito = props.carrito || [];
 
   const handleFinalizarCompra = () => {
     if (props.usuario) {
-      alert(`¡Compra realizada con éxito! Gracias ${props.usuario.nombreUsuario}`);
+      if (carrito.length === 0) {
+        alert("Tu carrito está vacío.");
+        return;
+      }
+
+      // 1. Mensaje de éxito
+      alert(`¡Compra realizada con éxito! Gracias ${props.usuario.nombreUsuario}, a jugar! 🎮`);
+
+      // 2. Vaciamos el carrito (Llama a la función de App.js)
+      props.vaciarCarrito();
+
+      // 3. Redirigimos al Home
+      props.history.push("/");
+
     } else {
       alert("Debes iniciar sesión para realizar una compra.");
       props.history.push("/Login");
     }
   };
 
-  const total = carritoDePrueba.reduce((acc, juego) => acc + juego.precio, 0);
-  const cantidad = carritoDePrueba.length;
+  // V.V: Calculamos el total sumando los precios reales
+  const total = carrito.reduce((acc, juego) => {
+    // Aseguramos que sea número
+    const precio = Number(juego.Precio || juego.precio) || 0;
+    return acc + precio;
+  }, 0);
 
   return (
     <div className="carrito-page">
       <div className="carrito-container">
 
         <div className="carrito-lista">
-          {carritoDePrueba.map((juego) => (
-            <div key={juego.id} className="carrito-card-juego">
+          {carrito.length > 0 ? (
+            carrito.map((juego) => (
+              <div key={juego.ID_Juego} className="carrito-card-juego">
 
-              <div className="carrito-card-img-wrapper">
-                <img src={juego.img} alt={juego.nombre} />
-              </div>
-
-              <div className="carrito-card-contenido">
-                <div className="carrito-card-header">
-                  <h3>{juego.nombre}</h3>
-                  <button className="carrito-btn-eliminar" title="Eliminar del carrito">
-                    <span role="img" aria-label="eliminar">🗑️</span>
-                  </button>
+                <div className="carrito-card-img-wrapper">
+                  <img src={juego.imageURL || juego.img || "https://placeholder.com/img"} alt={juego.Titulo} />
                 </div>
 
-                <p className="carrito-descripcion">{juego.descripcion}</p>
+                <div className="carrito-card-contenido">
+                  <div className="carrito-card-header">
+                    <h3>{juego.Titulo || juego.titulo}</h3>
+                    {/* BOTÓN ELIMINAR CONECTADO */}
+                    <button
+                      className="carrito-btn-eliminar"
+                      title="Eliminar del carrito"
+                      onClick={() => props.eliminarDelCarrito(juego.ID_Juego)}
+                    >
+                      🗑️
+                    </button>
+                  </div>
 
-                <div className="carrito-card-footer">
-                  <div className="carrito-plataformas">
-                    {juego.plataformas.map((p, i) => (
-                      <span key={i} className="carrito-icono-plat" title={p}>
-                        {LOGOS[p] || p}
+                  <p className="carrito-descripcion">{juego.Descripcion || juego.descripcion}</p>
+
+                  <div className="carrito-card-footer">
+                    {/* Puedes poner lógica de plataformas aquí si quieres */}
+                    <div className="carrito-plataformas">
+                      <span>Juego Digital</span>
+                    </div>
+
+                    <div className="carrito-precios-wrapper">
+                      <span className="carrito-precio-final">
+                        ${(juego.Precio || 0).toLocaleString()}
                       </span>
-                    ))}
-                  </div>
-
-                  <div className="carrito-precios-wrapper">
-                    <span className="carrito-precio-original">${juego.precioOriginal.toLocaleString()}</span>
-                    <span className="carrito-precio-final">${juego.precio.toLocaleString()}</span>
+                    </div>
                   </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div style={{ textAlign: 'center', color: '#fff' }}>
+              <h2>Tu carrito está vacío 😔</h2>
+              <p>¡Ve al catálogo y agrega algunos juegos!</p>
             </div>
-          ))}
+          )}
         </div>
 
+        {/* RESUMEN */}
         <div className="carrito-resumen">
           <div className="carrito-resumen-box">
             <div className="carrito-resumen-fila">
               <span>Cantidad de juegos:</span>
-              <span className="carrito-highlight-text">{cantidad}</span>
+              <span className="carrito-highlight-text">{carrito.length}</span>
             </div>
 
             <div className="carrito-resumen-fila carrito-total-fila">

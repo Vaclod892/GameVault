@@ -127,9 +127,19 @@
 }
 
 /* Iconos de Plataforma */
+
 .iconos-plataforma {
   display: flex;
   gap: 10px;
-  color: #99a8b8;
-  font-size: 18px;
+  align-items: center; /* Alineación vertical */
+}
+
+.plataforma-icon {
+  font-size: 1.2rem;
+  color: #9ca3af; /* Gris claro */
+  transition: color 0.2s ease;
+}
+
+.plataforma-icon:hover {
+  color: #fff; /* Blanco brillante al pasar el mouse */
 }

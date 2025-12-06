@@ -74,7 +74,7 @@
   margin: 0;
   height: 100%;
   align-items: center;
-  transition: transform 0.3s ease-in-out; /* V.D. - Transición de carrusel */
+  transition: transform 1.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .genero-item {
